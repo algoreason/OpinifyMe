@@ -1,0 +1,14 @@
+{%if latest_question_list %}
+<div id="LogOut" style="float:right">
+<h2>
+<a href="{% url 'polls:logout' %}">LOGOUT</a>
+</h2>
+</div>
+<ol type="1">
+	{% for question in latest_question_list %}
+		<li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+	{% endfor %}
+</ol>
+{%else %}
+	<p> No polls are available. </p>
+{% endif %}

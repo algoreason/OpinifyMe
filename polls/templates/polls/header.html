@@ -1,0 +1,15 @@
+<html>
+<head>
+	
+</head>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/header.css' %}">
+<body>
+	<div id="header">
+		<a href="{% url 'polls:categoryInit' %}"><img id="logo" src="{% static 'polls/Home/Opinify.png' %}"></a>
+		<a id="profile" href="{% url 'polls:profileView' %}">Hi {{ username.first_name }}</a>
+		<a id="logout" href="{% url 'polls:logout' %}">Logout</a>
+	</div>
+	
+</body>
+</html>

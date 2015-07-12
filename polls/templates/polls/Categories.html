@@ -1,0 +1,86 @@
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Categories</title>
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/Categories/categories.css' %}">
+</head>
+
+<body>
+{% include 'polls/header.html' %}
+
+  <div id="Categories">
+  <!--
+  {% if category_list %}
+   <ol type="1">
+  {% for cat in category_list %}
+    <li><a href="{% url 'polls:category_proc' cat.category_id %}">{{ cat.category_name }}</a></li>
+  {% endfor %}
+  {% else %}
+  <h1> Sorry! </h1>
+  {% endif %}
+  </ol>-->
+  <div id="heading">
+  Categories
+  </div>
+  <div id="CS">
+  
+  <a id="CS-link" href="{% url 'polls:category_proc' 'CS' %}">
+  <div id="CS-text">
+  Technology
+  </div>
+  </a>
+  </div>
+  
+  <div id="phil">
+  <a id="phil-link" href="{% url 'polls:category_proc' 'PHIL' %}">
+  <div id="phil-text">
+  Social concerns
+  </div>
+  </a>
+  </div>
+
+  <div id="gen">
+  <a id="gen-link" href="{% url 'polls:category_proc' 'GEN' %}">
+  <div id="gen-text">
+  General Questions
+  </div>
+  </a>
+  </div>
+
+  <div id="per">
+  <a id="per-link" href="{% url 'polls:category_proc' 'PERPREF' %}">
+  <div id="per-text">
+  Personal Perspective
+  </div>
+  </a>
+  </div>
+
+  <div id="tv">
+  <a id="tv-link" href="{% url 'polls:category_proc' 'TV' %}">
+  <div id="tv-text">
+  TV Series
+  </div>
+  </a>
+  </div>
+
+  <div id="movies">
+  <a id="movies-link" href="{% url 'polls:category_proc' 'MOV' %}">
+  <div id="movies-text">
+  Movies
+  </div>
+  </a>
+  </div>
+  
+  </div>  
+  
+
+{% include 'polls/footer.html' %}
+
+
+</body>
+</html>

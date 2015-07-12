@@ -1,0 +1,67 @@
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  {% if category %}
+  <title>{{ category.category_name }}</title>
+  <style type="text/css">
+  body{
+    background-color: #F5F5F0;
+  }
+  #QuestionList{
+    position: absolute;
+    top:10%;
+    left: 19%;
+    width:60%;
+    height: 93%;
+    background-color: white;
+    
+  }
+  #question{
+    font: 34px Georgia, serif;
+    position: absolute;
+    left: 4%;
+    top:14%
+  }
+  #space{
+    position: absolute;
+    top: 22%;
+  }
+  #Heading{
+    position: absolute;
+    top: 5%;
+    left: 34%;
+    font: 36px Georgia, serif;
+  }
+  </style>
+</head>
+
+<body>
+
+{% include 'polls/header.html' %}
+
+  <div id="QuestionList">
+  <div id="Heading">
+    {{category.category_name }}
+  </div>
+  <div id="question">
+  <ol type="1">
+  {% for question in question_list %}
+    <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+  <div id="space">
+
+  </div>
+
+  {% endfor %}
+  </ol>
+  </div>
+  </div>  
+{% else %}
+<p> No Questions Available Under this Category </p>
+{% endif %}
+<div id="bottom">
+{% include 'polls/footer.html' %}
+</div>
+</body>
+</html>

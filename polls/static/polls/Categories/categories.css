@@ -1,0 +1,114 @@
+
+  body{
+    background-color: #F5F5F0;
+  }
+  #Categories{
+    position: absolute;
+    top: 5%;
+    left: 19%;
+    width:60%;
+    height: 93%;
+
+
+    background-color: white;
+  }
+  #heading{
+    position: absolute;
+    top: 11%;
+    left: 42%;
+    font: 34px Georgia, serif;
+  }
+  #CS,#phil,#gen,#per,#tv,#movies{
+    border-radius: 0px 50px 0px 50px;
+    background: #8AC007;
+    padding: 20px; 
+    width: 200px;
+    height: 150px;
+    font: 28px Georgia, serif;
+    
+  }
+  #CS{
+    position: absolute;
+    left: 14%;
+    top:25%;
+  }
+  #phil{
+      position: absolute;
+    left: 39%;
+    top:25%;
+    
+  }
+  #gen{
+    position: absolute;
+    left: 14%;
+    top: 60%;
+  }
+  #per{
+    position: absolute;
+    left: 39%;
+    top: 60%;
+  }
+  #tv{
+    position: absolute;
+    left: 64%;
+    top: 25%;
+  }
+  #movies{
+    position: absolute;
+    left: 64%;
+    top: 60%;
+  }
+  
+  #CS-link,#phil-link,#gen-link,#per-link,#tv-link,#movies-link{
+    position: absolute;
+    left: 0%;
+    top:0%;
+    height: 100%;
+    width: 100%;
+    
+  }
+  #CS-text{
+    position: absolute;
+    left: 22%;
+    top:36%;
+    width: 70%;
+    text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
+    color: white;
+  }
+  
+  #phil-text{
+    position: absolute;
+    left: 27%;
+    top:28%;
+    text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
+    color: white;
+  }
+
+  #gen-text{
+    position: absolute;
+    left: 25%;
+    top:32%;
+    text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
+    color: white;
+  }  
+  #per-text{
+    position: absolute;
+    left: 25%;
+    top:32%;
+    text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
+    color: white;
+  }
+  #tv-text{
+    position: absolute;
+    left: 25%;
+    top:32%;
+    text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
+    color: white;
+  }
+  #movies-text{
+    position: absolute;
+    left:28%;
+    top:38%;
+    text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
+    color: white;
+  }

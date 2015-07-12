@@ -1,0 +1,112 @@
+body{
+	background-image: url("grass.jpg");
+	background-position: bottom;
+}
+	#header{
+		position: fixed;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 30%;
+		background-color: #8AC007;
+	}
+	#footer{
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		width: 100%;
+		height: 5%;
+		background-color: #8AC007;
+	}
+	#logo{
+		position: absolute;
+		top:15%;
+		left:35%;
+	}
+	#jingle{
+		position: absolute;
+		top:70%;
+		left:33.5%;
+	}
+	#form{
+		z-index: 2;
+		position: fixed;
+		border-width:5px;	
+    	border-style:ridge;
+		top: 38%;
+		left: 34%;
+		width: 25%;
+		height: 40%;
+    	padding: 10px; 
+    	background-color: white;
+	}
+	#username{
+		position: absolute;
+		top : 33%;
+		left: 19%;
+		width:60%;
+		height: 10%;
+	}
+	#password{
+		position: absolute;
+		top : 55%;
+		left: 19%;
+		width:60%;
+		height: 10%;
+	}
+	#submit{
+		position: absolute;
+		font: 20px Georgia, serif;
+		top : 74%;
+		left: 39%;
+		width: 20%;
+		height: 10%;
+	}
+	#loginmsg
+	{
+		position: absolute;
+		top : 15%;
+		left: 20%;
+		font-size: 30px;
+	}
+	#copy
+	{
+		color:#B82E00;
+		position: absolute;
+		left:40%;
+		bottom:50%;
+		text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
+	}
+	#register{
+		position: absolute;
+		font: 18px Georgia, serif;
+		top : 90%;
+		left: 22%;
+		width: 40%;
+		height: 10%;
+	}
+	#forgot{
+		position: absolute;
+		font: 18px Georgia, serif;
+		top : 90%;
+		left: 50%;
+		width: 40%;
+		height: 10%;
+	}
+	#error_msg{
+		position: absolute;
+		left:34%;
+		top:31%;
+		width:26%;
+		height: 5%;
+		font: 18px Georgia, serif;
+		color: red;
+		border-width:5px;	
+    	border-style:ridge;
+    	background-color: #FFE6E6;
+    }
+    #invalid_msg{
+    	position: absolute;
+    	left:25%;
+
+    }

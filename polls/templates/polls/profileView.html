@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>
+{{ user.username }} - Profile
+</title>
+</head>
+<body>
+	<h1>
+	{{ user.username }}
+	</h1>
+	<h5>Name: 
+	{{ user.first_name }} {{user.last_name}}
+</h5>
+	<h5>Username: 
+	{{ user.username }}
+</h5>
+<h5>Email: 
+	{{ user.email }}
+</h5></br>
+<ol type="1">
+{% for vote in voted %}
+<li><h3> {{ vote.question_id }} - {{ vote.choice }} - {{vote.voted_date}}
+</h3>
+</li>
+{% endfor%}
+</body>
+
+</html>

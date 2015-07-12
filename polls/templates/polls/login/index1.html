@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Log-in</title>
+
+{% load staticfiles %}
+
+</head>
+
+<body>
+
+  <div class="login-card">
+    <h1>Log-in</h1><br>
+    {% if error_message %}
+
+    <h3>Login Failed .Try Again!</h3>
+    {% endif %}
+  <form action="{%  url 'polls:loginAuth'%}"  method="POST">
+  {%  csrf_token %}
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <input type="submit" name="login" class="login login-submit" value="login">
+  </form>
+  
+  <div class="login-help">
+    <a href="{% url 'polls:registerInit' %}">Register</a> 
+    <a href="#">Forgot Password</a>
+  </div>
+</div>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<<!DOCTYPE html>
+<html>
+<head>
+	<title>Results</title>
+<style type="text/css">
+	body{
+		background-color: #F5F5F0;
+	}	
+	#result-card{
+		position: absolute;
+		top: 10%;
+		left: 26%;
+		border:2px solid black;
+		width: 50%;
+		height: 90%;
+		background-color: white;
+	}
+	#res-text{
+		position: absolute;
+		top:4%;
+		text-align: center;
+		width: 100%;
+	}
+	#res-voted{
+		position: absolute;
+		top: 9%;
+		text-align: center;
+		width: 100%;
+		color: green;
+	}
+	#res-qtext{
+		position: absolute; 
+		top:14%;
+		text-align: center;
+		width: 100%;
+		font: 25px Georgia, serif;
+	}
+	#res-choices{
+		position: absolute;
+		top:25%;
+		left: 30%;
+		font: 22px Georgia, serif;	
+	}
+</style>
+</head>
+<body>
+{% load poll_extras%}
+{% include 'polls/header.html'%}
+<div id="result-card">
+<div id="res-text">
+	<h1> Results </h1>
+	</div>
+{% if voted %}
+<div id="res-voted">
+<h3>You have already voted for this Question</h3></br>
+</div>
+{% endif %}
+<div id="res-qtext">
+<h3> {{question.question_text}} </h3>
+</div>
+<div id="res-choices">
+<ul>
+{% for choice in question.choice_set.all %}
+		
+	<li> {{choice.choice_text}} - {{ choice.votes|percent:sum1 }} %</li>
+{% endfor%}
+
+</ul>
+</div>
+
+</div>
+{% include 'polls/footer.html' %}
+</body>
+</html>
