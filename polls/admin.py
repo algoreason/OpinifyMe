@@ -1,8 +1,9 @@
 from django.contrib import admin
 
 # Register your models here.
-from polls.models import Question,Choice
+from polls.models import Question,Choice,Category
 from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
 
 class ChoiceInLine(admin.TabularInline):
     model = Choice
@@ -12,6 +13,10 @@ class SessionAdmin(admin.ModelAdmin):
     def _session_data(self, obj):
         return obj.get_decoded()
     list_display = ['session_key', '_session_data', 'expire_date']
+
+class CategoryAdmin(admin.ModelAdmin):
+    fieldsets=[('Category Info', {'fields':['category_id','category_name']}),]
+    list_display = ('category_id','category_name')
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets=[
@@ -25,3 +30,4 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(Question,QuestionAdmin)
 admin.site.register(Session, SessionAdmin)
+admin.site.register(Category,CategoryAdmin)

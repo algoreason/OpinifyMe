@@ -9,11 +9,9 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 
 def loginInitialization(request):
-    username=request.session['user_idname']
-    print(username);
-    if not username:
-        return HttpResponseRedirect("/cats/")
-    return render(request,'polls/login/index.html',{})
+	if 'user_idname' in request.session:
+		return HttpResponseRedirect("/cats/")
+	return render(request,'polls/login/index.html',{})
 
 def loginRetry(request,error):
     return render(request,'polls/login/index.html',{'error_message':'error'})
