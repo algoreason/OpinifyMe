@@ -15,7 +15,7 @@ class SessionAdmin(admin.ModelAdmin):
     list_display = ['session_key', '_session_data', 'expire_date']
 
 class CategoryAdmin(admin.ModelAdmin):
-    fieldsets=[('Category Info', {'fields':['category_id','category_name']}),]
+    fieldsets=[('Category Info', {'fields':['category_id','category_name','category_color']}),]
     list_display = ('category_id','category_name')
 
 class QuestionAdmin(admin.ModelAdmin):

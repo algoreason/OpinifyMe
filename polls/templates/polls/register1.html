@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Sign Up</title>
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/Register/register-theme.css' %}">
+</head>
+
+<body>
+
+    <div id="header">
+      <a href="{% url 'polls:loginInitialization'%}"><img id="logo" src="{% static 'polls/Home/Opinify.png' %}"></a>
+      <img id="jingle" src="{% static 'polls/Home/jingle.png' %}">
+    </div>
+    
+  <div id="signup-card">
+  <div id="register-text">
+    Sign Up
+  </div>
+  <form action="{%  url 'polls:register' %}"  method="POST">
+  {%  csrf_token %}
+    <input type="text" id="reg-username" name="username" placeholder="Username">
+    <input type="text" id="reg-firstname" name="firstname" placeholder="First Name">
+    <input type="text" id="reg-lastname" name="lastname" placeholder="Last Name">
+    <input type="text" id="reg-email" name="email" placeholder="Email">
+    <input type="password" id="reg-password" name="password" placeholder="Password">
+    <input type="submit" id="reg-submit" name="signup" value="Sign Up">
+  </form>
+  <div id="declaration">
+  By clicking "Sign Up" you indicate that you have read and agree to the Terms of Service.
+  </div>
+</div>
+
+<div id="img">
+</div>
+
+
+</body>
+
+</html>

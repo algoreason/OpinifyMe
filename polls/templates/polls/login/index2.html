@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>
+		Login
+	</title>
+	{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/Home/login-theme.css' %}">
+
+</head>
+
+<body>
+
+	<div id="header">
+	<a href="{% url 'polls:loginInitialization'%}"><img id="logo" src="{% static 'polls/Home/Opinify.png' %}"></a>
+	<img id="jingle" src="{% static 'polls/Home/jingle.png' %}">
+	</div>
+	
+	{% if error_message %}
+	<div id="error_msg">
+		<p id="invalid_msg">Invalid Username or password!<p>
+    </div>
+    {% endif %}
+    
+	<div id="form">
+	
+	<form action="{%  url 'polls:loginAuth'%}" method="POST">
+	{%  csrf_token %}
+	<div id="loginmsg">
+	<label>LOGIN</label>
+	</div>
+	<input type="text" id="username" name="username" placeholder="Username"></br>
+	<input type="password" id="password" name="password" placeholder="Password"></br>
+	<input type="submit" id="submit" value="Login">
+	</form>
+	<a id="register" href="{% url 'polls:registerInit' %}">New to Opinify?</a> 
+	<a id ="forgot" href="#">Forgot Password</a>
+	</div>
+
+	<div id="footer">
+	<div id="Copy">
+	Copyright (c) 2015 Sharad Dargan,OpinifyMe
+	</div>
+	</div>
+
+</body>
+
+
+</html>

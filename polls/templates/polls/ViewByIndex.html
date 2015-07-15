@@ -1,67 +1,137 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-
-  <meta charset="UTF-8">
-  {% if category %}
-  <title>{{ category.category_name }}</title>
+<title>Layout Page</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- The Ones from google (the real deal)-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.red-blue.min.css" />  
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <style type="text/css">
-  body{
-    background-color: #F5F5F0;
-  }
-  #QuestionList{
-    position: absolute;
-    top:10%;
-    left: 19%;
-    width:60%;
-    height: 93%;
-    background-color: white;
-    
-  }
-  #question{
-    font: 34px Georgia, serif;
-    position: absolute;
-    left: 4%;
-    top:14%
-  }
-  #space{
-    position: absolute;
-    top: 22%;
-  }
-  #Heading{
-    position: absolute;
-    top: 5%;
-    left: 34%;
-    font: 36px Georgia, serif;
-  }
+@media screen and (min-width:768px){
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.mybrand{
+        	font-size:180%; padding-top:20%;
+        }
+.myfooter{
+  position: absolute;
+  bottom:0%;
+  width: 101%;
+}
+}
+.row{
+			width: 100%;
+}
+
+@media screen and (max-width:768px){
+	.myrow1{
+		margin-left: 1%;
+
+	}
+  .myQ{
+  margin-left: 33%
+}
+.mychoice{
+  margin-left: 30%
+}
+.myQues{
+  margin-left: 7%;
+	}
+}
+.navbar{
+	margin-bottom: 0;
+}
+.material-icons.orange600 { color: #FB8C00; }
+    .material-icons.green500 { color: #4CAF50; }
+    .material-icons.blue500 { color: #03A9F4 }
+    .material-icons.red500 { color: #F44336 }
+.material-icons.md-48 { font-size: 48px; }
+
+            body{
+            	background-image: url("grey.png");
+
+        }
+        .link-undecorated{
+        	text-decoration: none;
+        }
+        .row1{
+          margin-top: 5%;
+        }
+        .row3{
+          margin-top: 2%;
+        }
   </style>
-</head>
-
-<body>
-
-{% include 'polls/header.html' %}
-
-  <div id="QuestionList">
-  <div id="Heading">
-    {{category.category_name }}
+  </head>
+  <body>
+  	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand mybrand" href="{% url 'polls:categoryInit' %}"><div>Opinify Me!</div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'polls:categoryInit' %}"><i class="material-icons orange600">dashboard</i> <div>All Categories</div></a></li>
+        
+        <li><a href="#"><i class="material-icons green500">info_outline</i> </span><div> About</div></a></li> 
+        <li><a href="#"><i class="material-icons red500">help</i> <div>F.A.Q.</div></a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      
+		<li class="dropdown">
+		<a class="dropdown-toggle" id="demo-menu-lower-right" data-toggle="dropdown" href="#"><i class="material-icons blue500">face</i><div>Hi {{ username.first_name }}</div></a></li>
+		<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+		    for="demo-menu-lower-right">
+		  <li class="mdl-menu__item"><a href="{% url 'polls:profileView' %}" style="text-decoration:none; color:black;">My Profile</a></li>
+		  <li class="mdl-menu__item"><a href="{% url 'polls:logout' %}" style="text-decoration:none; color:black">Logout</a></li>
+		</ul>
+      </ul>
+    </div>
   </div>
-  <div id="question">
-  <ol type="1">
-  {% for question in question_list %}
-    <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-  <div id="space">
-
-  </div>
-
-  {% endfor %}
-  </ol>
-  </div>
-  </div>  
-{% else %}
-<p> No Questions Available Under this Category </p>
-{% endif %}
-<div id="bottom">
-{% include 'polls/footer.html' %}
+  
+</nav>
+<div class="jumbotron" style="background-color:{{category.category_color}}">
+	<div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+    <h1 style="color:#FFEBEE;">{{category.category_name }}</h1>
+    </div>
+    <div class="col-sm-2"></div>
+    </div>
+ </div>
+    <div class="container">
+      <div class="list-group">
+      {% for question in question_list %}
+      <a href="{% url 'polls:detail' question.id %}" class="list-group-item">{{forloop.counter}} . {{question.question_text }}</a>
+      {% endfor %}
 </div>
-</body>
-</html>
+    </div>
+  <div style="width:101%;">
+  	<footer class="mdl-mini-footer myfooter" style="margin-top:4%;">
+      <div class="mdl-mini-footer--left-section">
+      <div class="mdl-logo" style="padding-left:3%">Designed and developed by Sharad Dargan</div>
+      <ul class="mdl-mini-footer--link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy &amp; Terms</a></li>
+    </ul>
+  </div>
+</footer>
+</div>
+	</body>
+	</html>

@@ -1,86 +1,242 @@
+<!DOCTYPE html>
 <html>
-
 <head>
+<title>Layout Page</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- The Ones from google (the real deal)-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-red.min.css" /> 
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style type="text/css">
+@media screen and (min-width:768px){
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
 
-  <meta charset="UTF-8">
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.mybrand{
+        	font-size:180%; padding-top:20%;
+        }
+}
+.row{
+			width: 100%;
+}
+@media screen and (max-width:768px){
+	.myrow1{
+		margin-left: 1%;
 
-  <title>Categories</title>
+	}
+	}
+.navbar{
+	margin-bottom: 0;
+}
+.material-icons.orange600 { color: #FB8C00; }
+    .material-icons.green500 { color: #4CAF50; }
+    .material-icons.blue500 { color: #03A9F4 }
+    .material-icons.red500 { color: #F44336 }
+.material-icons.md-48 { font-size: 48px; }
+		.mycard1{
+              background-color: #46B6AC;
+            }
+            .mycard2{
+              background-color: #FFD54F;
+            }
+            .mycard3{
+              background-color: #4CAF50;
+            }
+            .mycard4{
+              background-color: #F44336;
+            }
+            .mycard5{
+              background-color: #03A9F4;
+            }
+            .mycard6{
+              background-color: #673AB7;
+            }
+            .demo-card-image.mdl-card {
+          width: 239px;
+          height: 256px;
+          background: url('photo.jpg') center / cover;
+      }
+      .demo-card-image > .mdl-card__actions {
+      height: 52px;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.2);
+      }
+      .demo-card-image__filename {
+      color: #fff;
+      }
+      
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'polls/Categories/categories.css' %}">
-</head>
+      .demo-card-square.mdl-card {
+              width: 100%;
+              height: 320px;
+            }
+            .demo-card-square > .mdl-card__title {
+              color: #fff;
+              
+            }
+            body{
+            	background-image: url("grey.png");
 
-<body>
-{% include 'polls/header.html' %}
-
-  <div id="Categories">
-  <!--
-  {% if category_list %}
-   <ol type="1">
-  {% for cat in category_list %}
-    <li><a href="{% url 'polls:category_proc' cat.category_id %}">{{ cat.category_name }}</a></li>
-  {% endfor %}
-  {% else %}
-  <h1> Sorry! </h1>
-  {% endif %}
-  </ol>-->
-  <div id="heading">
-  Categories
+        }
+        .link-undecorated{
+        	text-decoration: none;
+        }
+        
+  </style>
+  </head>
+  <body>
+  	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand mybrand" href="#"><div>Opinify Me!</div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#"><i class="material-icons orange600">dashboard</i> <div>All Categories</div></a></li>
+        
+        <li><a href="#"><i class="material-icons green500">info_outline</i> </span><div> About</div></a></li> 
+        <li><a href="#"><i class="material-icons red500">help</i> <div>F.A.Q.</div></a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      
+		<li class="dropdown">
+		<a class="dropdown-toggle" id="demo-menu-lower-right" data-toggle="dropdown" href="#"><i class="material-icons blue500">face</i><div>Hi {{ username.first_name }}</div></a></li>
+		<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+		    for="demo-menu-lower-right">
+		  <li class="mdl-menu__item"><a href="{% url 'polls:profileView' %}" style="text-decoration:none; color:black;">My Profile</a></li>
+		  <li class="mdl-menu__item"><a href="{% url 'polls:logout' %}" style="text-decoration:none; color:black">Logout</a></li>
+		</ul>
+      </ul>
+    </div>
   </div>
-  <div id="CS">
   
-  <a id="CS-link" href="{% url 'polls:category_proc' 'CS' %}">
-  <div id="CS-text">
-  Technology
+</nav>
+<div class="jumbotron" style="background-color:#2196F3">
+	<div class="row">
+	<div class="col-sm-1"></div>
+	<div class="col-sm-6">
+    <h1 style="color:#E8F5E9; margin-left:2%;">Categories</h1>
+    <p style="color:#C8E6C9; margin-left:15%;">to filter and cover more!</p>      
+    </div>
+    
+    <div class="col-sm-5"></div>
+    </div>
+ </div>
+	<div class="row myrow1" style="margin-top:2%">
+  	<div class="col-sm-1"></div>
+  	<div class="col-sm-3" style="margin-left:-2%">
+  		<a href="{% url 'polls:category_proc' 'CS' %}" style="text-decoration:none;">
+          <div class="mdl-card mdl-shadow--2dp demo-card-square">
+            <div class="mdl-card__title mdl-card--expand mycard1">
+              <h2 class="mdl-card__title-text">Technology &nbsp <i class="material-icons md-48">android</i></h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              Questions related to various technologies(Computer Sciences)
+            </div>
+            
+          </div>
+          </a>
+  	</div>
+  	<div class="col-sm-1"></div>
+  	<div class="col-sm-3" style="margin-left:-2%">
+  		<a href="{% url 'polls:category_proc' 'TV' %}" style="text-decoration:none;">
+          <div class="mdl-card mdl-shadow--2dp demo-card-square">
+          
+            <div class="mdl-card__title mdl-card--expand mycard2" >
+              <h2 class="mdl-card__title-text">TV Series</h2>
+            </div>
+            
+            <div class="mdl-card__supporting-text">
+              All sorts of TV shows including SITCOMs and the interesting ones.
+            </div>
+            
+          </div>
+          </a>
+  	</div>
+  	<div class="col-sm-1"></div>
+  	<div class="col-sm-3" style="margin-left:-2%">
+  		<a href="{% url 'polls:category_proc' 'MOV' %}" style="text-decoration:none;">
+          <div class="mdl-card mdl-shadow--2dp demo-card-square">
+          
+            <div class="mdl-card__title mdl-card--expand mycard3" >
+              <h2 class="mdl-card__title-text">MOVIES</h2>
+            </div>
+            
+            <div class="mdl-card__supporting-text">
+              Ever wanted to know what others thought about the movie ?
+            </div>
+            
+          </div>
+          </a>
+  	</div>
+  	</div>
+  	<div class="row myrow1" style="margin-top:3%">
+  	<div class="col-sm-1"></div>
+  	<div class="col-sm-3" style="margin-left:-2%">
+  		<a href="{% url 'polls:category_proc' 'PHIL' %}" style="text-decoration:none;">
+          <div class="mdl-card mdl-shadow--2dp demo-card-square">
+            <div class="mdl-card__title mdl-card--expand mycard4">
+              <h2 class="mdl-card__title-text">Social Issues</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              This topic will take care of all issues and concerns regarding all social aspects.
+            </div>
+            
+          </div>
+          </a>
+  	</div>
+  	<div class="col-sm-1"></div>
+  	<div class="col-sm-3" style="margin-left:-2%">
+  		<a href="{% url 'polls:category_proc' 'PERPREF' %}" style="text-decoration:none;">
+          <div class="mdl-card mdl-shadow--2dp demo-card-square">
+            <div class="mdl-card__title mdl-card--expand mycard5">
+              <h2 class="mdl-card__title-text">Personal Beliefs</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              Enlist yours and get to know the personal perspective of people!
+            </div>
+            
+          </div>
+          </a>
+  	</div>
+  	<div class="col-sm-1"></div>
+  	<div class="col-sm-3" style="margin-left:-2%">
+  		<a href="{% url 'polls:category_proc' 'GEN' %}" style="text-decoration:none;">
+          <div class="mdl-card mdl-shadow--2dp demo-card-square">
+            <div class="mdl-card__title mdl-card--expand mycard6">
+              <h2 class="mdl-card__title-text">General Questions</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              All the residual and general ones will be treated here.
+            </div>
+            
+          </div>
+          </a>
+  	</div>
+  	</div>
+  	<footer class="mdl-mini-footer" style="margin-top:4%">
+  <div class="mdl-mini-footer--left-section">
+    <div class="mdl-logo">Designed and developed by Sharad Dargan</div>
+    <ul class="mdl-mini-footer--link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy &amp; Terms</a></li>
+    </ul>
   </div>
-  </a>
-  </div>
-  
-  <div id="phil">
-  <a id="phil-link" href="{% url 'polls:category_proc' 'PHIL' %}">
-  <div id="phil-text">
-  Social concerns
-  </div>
-  </a>
-  </div>
-
-  <div id="gen">
-  <a id="gen-link" href="{% url 'polls:category_proc' 'GEN' %}">
-  <div id="gen-text">
-  General Questions
-  </div>
-  </a>
-  </div>
-
-  <div id="per">
-  <a id="per-link" href="{% url 'polls:category_proc' 'PERPREF' %}">
-  <div id="per-text">
-  Personal Perspective
-  </div>
-  </a>
-  </div>
-
-  <div id="tv">
-  <a id="tv-link" href="{% url 'polls:category_proc' 'TV' %}">
-  <div id="tv-text">
-  TV Series
-  </div>
-  </a>
-  </div>
-
-  <div id="movies">
-  <a id="movies-link" href="{% url 'polls:category_proc' 'MOV' %}">
-  <div id="movies-text">
-  Movies
-  </div>
-  </a>
-  </div>
-  
-  </div>  
-  
-
-{% include 'polls/footer.html' %}
-
-
-</body>
-</html>
+</footer>
+	</body>
+	</html>

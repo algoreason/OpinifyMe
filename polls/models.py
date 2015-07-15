@@ -23,6 +23,7 @@ class Choice(models.Model):
 
 class Category(models.Model):
     category_id = models.CharField(max_length=200)
+    category_color = models.CharField(max_length=10)
     category_name = models.CharField(max_length=400)
     def __str__(self):
         return self.category_id
