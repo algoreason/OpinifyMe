@@ -1,28 +1,208 @@
+<!DOCTYPE html>
 <html>
 <head>
-<title>
-{{ user.username }} - Profile
-</title>
-</head>
-<body>
-	<h1>
-	{{ user.username }}
-	</h1>
-	<h5>Name: 
-	{{ user.first_name }} {{user.last_name}}
-</h5>
-	<h5>Username: 
-	{{ user.username }}
-</h5>
-<h5>Email: 
-	{{ user.email }}
-</h5></br>
-<ol type="1">
-{% for vote in voted %}
-<li><h3> {{ vote.question_id }} - {{ vote.choice }} - {{vote.voted_date}}
-</h3>
-</li>
-{% endfor%}
-</body>
+<title>Layout Page</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- The Ones from google (the real deal)-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.red-blue.min.css" />  
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style type="text/css">
+@media screen and (min-width:768px){
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
 
-</html>
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.mybrand{
+        	font-size:180%; padding-top:20%;
+        }
+
+.firstname{
+  font-size: 48px;
+}
+}
+.row{
+			width: 100%;
+}
+
+@media screen and (max-width:768px){
+	.myrow1{
+		margin-left: 1%;
+
+	}
+  .myQ{
+  margin-left: 33%
+}
+.mychoice{
+  margin-left: 30%
+}
+.myQues{
+  margin-left: 7%;
+	}
+.firstname{
+  font-size: 24px;
+}
+}
+.navbar{
+	margin-bottom: 0;
+}
+.material-icons.orange600 { color: #FB8C00; }
+    .material-icons.green500 { color: #4CAF50; }
+    .material-icons.blue500 { color: #03A9F4 }
+    .material-icons.red500 { color: #F44336 }
+.material-icons.md-48 { font-size: 48px; }
+
+            body{
+            	background-image: url("grey.png");
+
+        }
+        .link-undecorated{
+        	text-decoration: none;
+        }
+        .row1{
+          margin-top: 5%;
+        }
+        .row3{
+          margin-top: 2%;
+        }
+  </style>
+  </head>
+  <body>
+  	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand mybrand" href="{% url 'polls:categoryInit' %}"><div>Opinify Me!</div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'polls:categoryInit' %}"><i class="material-icons orange600">dashboard</i> <div>All Categories</div></a></li>
+        
+        <li><a href="#"><i class="material-icons green500">info_outline</i> </span><div> About</div></a></li> 
+        <li><a href="#"><i class="material-icons red500">help</i> <div>F.A.Q.</div></a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      
+		<li class="dropdown">
+		<a class="dropdown-toggle" id="demo-menu-lower-right" data-toggle="dropdown" href="#"><i class="material-icons blue500">face</i><div>Hi {{ user.first_name }} !</div></a></li>
+		<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+		    for="demo-menu-lower-right">
+		  <li class="mdl-menu__item"><a href="{% url 'polls:profileView' %}" style="text-decoration:none; color:black;">My Profile</a></li>
+		  <li class="mdl-menu__item"><a href="{% url 'polls:logout' %}" style="text-decoration:none; color:black">Logout</a></li>
+		</ul>
+      </ul>
+    </div>
+  </div>
+  
+</nav>
+<div class="jumbotron" style="background-color:#009688">
+	<div class="row">
+	<div class="col-sm-3"></div>
+	<div class="col-sm-8">
+    <p class="firstname" style="color:white; font-size: 650%; text-transform:uppercase">{{ user.first_name }}</p>
+    <p style="color:white; margin-left:20%; margin-top:7%; font-size: 650%; text-transform:uppercase">{{ user.last_name }}</p>
+    </div>
+    <div class="col-sm-1"></div>
+    </div>
+ </div>
+    <div class="container">
+
+    <div class="panel panel-default">
+    <div class="panel-heading" style="background-color:#009688; text-align:center; color:white;">Basic Credentials</div>
+  <div class="panel-body">
+      <div class="list-group">
+  <a class="list-group-item">
+  <div class="row">
+  <div class="col-sm-6">
+  First Name:
+  </div>
+  <div class="col-sm-6">
+  | {{ user.first_name }}
+  </div>
+  </div>
+  </a>
+  <a class="list-group-item">
+  <div class="row">
+  <div class="col-sm-6">
+  Last Name:
+  </div>
+  <div class="col-sm-6">
+  | {{ user.last_name }}
+  </div>
+  </div>
+  </a>
+  <a class="list-group-item">
+    <div class="row">
+  <div class="col-sm-6">
+  Username:
+  </div>
+  <div class="col-sm-6">
+  | {{ user.username }}
+  </div>
+  </div>
+  </a>
+  <a class="list-group-item">
+    <div class="row">
+  <div class="col-sm-6">
+  Email:
+  </div>
+  <div class="col-sm-6">
+  | {{ user.email }}
+  </div>
+  </div>
+  </a>
+</div>
+    </div>
+    </div>
+</div>
+<div class="container">
+
+    <div class="panel panel-default">
+    <div class="panel-heading" style="background-color:#009688; text-align:center; color:white;">Account History</div>
+  <div class="panel-body">
+      <div class="list-group">
+  {% for vote in voted %}
+  <a class="list-group-item">
+  <div class="row">
+  <div class="col-sm-5">
+  {{ vote.question_id }}
+  </div>
+  <div class="col-sm-4">
+  | {{ vote.choice }}
+  </div>
+  <div class="col-sm-3">
+  | {{vote.voted_date}}
+  </div>
+  </div>
+  </a>
+  {% endfor%}
+</div>
+    </div>
+    </div>
+</div>
+  <div style="width:101%;">
+  	<footer class="mdl-mini-footer myfooter" style="margin-top:4%;">
+      <div class="mdl-mini-footer--left-section">
+      <div class="mdl-logo" style="padding-left:3%">Designed and developed by Sharad Dargan</div>
+      <ul class="mdl-mini-footer--link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy &amp; Terms</a></li>
+    </ul>
+  </div>
+</footer>
+</div>
+	</body>
+	</html>

@@ -1,74 +1,209 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Results</title>
-<style type="text/css">
-	body{
-		background-color: #F5F5F0;
-	}	
-	#result-card{
-		position: absolute;
-		top: 10%;
-		left: 26%;
-		border:2px solid black;
-		width: 50%;
-		height: 90%;
-		background-color: white;
+<title>Layout Page</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load staticfiles %}
+  <script src="{% static 'polls/libraries/RGraph.common.core.js' %}"></script>
+  <script src="{% static 'polls/libraries/RGraph.bar.js' %}"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- The Ones from google (the real deal)-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.red-blue.min.css" />  
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style type="text/css">
+@media screen and (min-width:768px){
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.mybrand{
+        	font-size:180%; padding-top:20%;
+        }
+
+}
+.row{
+			width: 100%;
+}
+
+@media screen and (max-width:768px){
+	.myrow1{
+		margin-left: 1%;
+
 	}
-	#res-text{
-		position: absolute;
-		top:4%;
-		text-align: center;
-		width: 100%;
+  .myQ{
+  margin-left: 33%
+}
+.mychoice{
+  margin-left: 30%
+}
+.myQues{
+  margin-left: 7%;
 	}
-	#res-voted{
-		position: absolute;
-		top: 9%;
-		text-align: center;
-		width: 100%;
-		color: green;
-	}
-	#res-qtext{
-		position: absolute; 
-		top:14%;
-		text-align: center;
-		width: 100%;
-		font: 25px Georgia, serif;
-	}
-	#res-choices{
-		position: absolute;
-		top:25%;
-		left: 30%;
-		font: 22px Georgia, serif;	
-	}
-</style>
-</head>
-<body>
-{% load poll_extras%}
-{% include 'polls/header.html'%}
-<div id="result-card">
-<div id="res-text">
-	<h1> Results </h1>
-	</div>
-{% if voted %}
-<div id="res-voted">
-<h3>You have already voted for this Question</h3></br>
-</div>
+}
+.navbar{
+	margin-bottom: 0;
+}
+.material-icons.orange600 { color: #FB8C00; }
+    .material-icons.green500 { color: #4CAF50; }
+    .material-icons.blue500 { color: #03A9F4 }
+    .material-icons.red500 { color: #F44336 }
+.material-icons.md-48 { font-size: 48px; }
+
+            body{
+            	background-image: url("grey.png");
+
+        }
+        .link-undecorated{
+        	text-decoration: none;
+        }
+        .row1{
+          margin-top: 5%;
+        }
+        .row3{
+          margin-top: 2%;
+        }
+  </style>
+  </head>
+  <body>
+  {% load poll_extras%}
+  	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand mybrand" href="{% url 'polls:categoryInit' %}"><div>Opinify Me!</div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'polls:categoryInit' %}"><i class="material-icons orange600">dashboard</i> <div>All Categories</div></a></li>
+        
+        <li><a href="#"><i class="material-icons green500">info_outline</i> </span><div> About</div></a></li> 
+        <li><a href="#"><i class="material-icons red500">help</i> <div>F.A.Q.</div></a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      
+		<li class="dropdown">
+		<a class="dropdown-toggle" id="demo-menu-lower-right" data-toggle="dropdown" href="#"><i class="material-icons blue500">face</i><div>Hi {{ username.first_name }}</div></a></li>
+		<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+		    for="demo-menu-lower-right">
+		  <li class="mdl-menu__item"><a href="{% url 'polls:profileView' %}" style="text-decoration:none; color:black;">My Profile</a></li>
+		  <li class="mdl-menu__item"><a href="{% url 'polls:logout' %}" style="text-decoration:none; color:black">Logout</a></li>
+		</ul>
+      </ul>
+    </div>
+  </div>
+  
+</nav>
+<div class="jumbotron" style="background-color:#4CAF50">
+	<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-6">
+    <h1 style="color:#E8F5E9; margin-left:2%;">Opinions</h1>
+    <p style="color:#C8E6C9; margin-left:15%;">Q. {{question.question_text}}</p>      
+    </div>
+    
+    <div class="col-sm-4"></div>
+    </div>
+ </div>
+ 
+ 
+ {% if voted %}
+  <div class="row">
+   <div class="col-sm-3"></div>
+   <div class="col-sm-6">
+    <div class="alert alert-info fade in" style="text-align:center">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Heads Up!</strong> You have already contributed your opinion for this question.
+    </div>
+  </div>
+  <div class="col-sm-3"></div>
 {% endif %}
-<div id="res-qtext">
-<h3> {{question.question_text}} </h3>
-</div>
-<div id="res-choices">
-<ul>
-{% for choice in question.choice_set.all %}
-		
-	<li> {{choice.choice_text}} - {{ choice.votes|percent:sum1 }} %</li>
-{% endfor%}
 
-</ul>
-</div>
+    </div>
 
+    <div class="container">
+    <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+    <div class="list-group">
+    <p class="list-group-item" style="text-align:center; background-color:#4CAF50; color:white">Options</p>
+    {% for choice in question.choice_set.all %}
+      <a class="list-group-item" style="text-align:center">{{forloop.counter}} . {{choice.choice_text}}</a>
+      {% endfor %}
+      </div>
+      </div>
+      <div class="col-sm-3"></div>
+      </div>
+      </div>
+
+  <div class="row myrow1" style="margin-top:3%; margin-left:-4%;">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6">
+      <canvas id="cvs" width="600" height="250" !style="border: 1px solid #ccc">
+    [No canvas support]
+    </canvas>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+  
+  <div style="width:101%;">
+  	<footer class="mdl-mini-footer myfooter" style="margin-top:4%;">
+      <div class="mdl-mini-footer--left-section">
+      <div class="mdl-logo" style="padding-left:3%">Designed and developed by Sharad Dargan</div>
+      <ul class="mdl-mini-footer--link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy &amp; Terms</a></li>
+    </ul>
+  </div>
+</footer>
 </div>
-{% include 'polls/footer.html' %}
-</body>
-</html>
+	</body>
+  <script>
+    $(document).ready(function ()
+    {
+        var data = [
+        {% for choice in question.choice_set.all %}
+        {{ choice.votes|percent:sum1 }}
+        {% if forloop.counter != 4%}
+        ,
+        {%endif %}
+        {%endfor%}
+        ];
+
+        var bar = new RGraph.Bar({
+            id: 'cvs',
+            data: data,
+            options: {
+                background: {
+                    grid: {
+                        autofit: {
+                            numvlines: 0
+                        }
+                    }
+                },
+                linewidth: 0,
+                shadow: false,
+                hmargin: 10,
+                colors: ['#4CAF50'],
+                labels: ['1','2','3','4'],
+                clearto: 'white',
+
+            }
+        })
+          
+        RGraph.ISOLD ? bar.draw() : bar.wave({frames: 60})
+    });
+</script>
+	</html>
