@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Layout Page</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- The Ones from google (the real deal)-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.red-blue.min.css" />  
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style type="text/css">
+@media screen and (min-width:768px){
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.mybrand{
+        	font-size:180%; padding-top:20%;
+        }
+}
+.row{
+			width: 100%;
+}
+
+@media screen and (max-width:768px){
+	.myrow1{
+		margin-left: 1%;
+
+	}
+  .myQ{
+  margin-left: 33%
+}
+.mychoice{
+  margin-left: 30%
+}
+.myQues{
+  margin-left: 7%;
+	}
+}
+.navbar{
+	margin-bottom: 0;
+}
+.material-icons.orange600 { color: #FB8C00; }
+    .material-icons.green500 { color: #4CAF50; }
+    .material-icons.blue500 { color: #03A9F4 }
+    .material-icons.red500 { color: #F44336 }
+.material-icons.md-48 { font-size: 48px; }
+
+            body{
+            	background-image: url("grey.png");
+
+        }
+        .link-undecorated{
+        	text-decoration: none;
+        }
+        .row1{
+          margin-top: 5%;
+        }
+        .row3{
+          margin-top: 2%;
+        }
+  </style>
+  </head>
+  <body>
+      {%if not user.first_name %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand" href="#">OpinifyMe!</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'polls:loginInitialization'%}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+        <li><a href="{% url 'polls:registerInit' %}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Register</a></li>
+        <li class="active"><a><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li> 
+        <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> F.A.Q.</a></li> 
+      </ul>
+    </div>
+  </div>
+</nav>
+{%endif%}
+{{user.first_name}}
+      {% if user.first_name %}
+  	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand mybrand" href="{% url 'polls:categoryInit' %}"><div>Opinify Me!</div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'polls:categoryInit' %}"><i class="material-icons orange600">dashboard</i> <div>All Categories</div></a></li>
+        
+        <li class="active"><a href="#"><i class="material-icons green500">info_outline</i> </span><div> About</div></a></li> 
+        <li><a href="#"><i class="material-icons red500">help</i> <div>F.A.Q.</div></a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      
+		<li class="dropdown">
+		<a class="dropdown-toggle" id="demo-menu-lower-right" data-toggle="dropdown" href="#"><i class="material-icons blue500">face</i><div>Hi {{ user.first_name }} !</div></a></li>
+		<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+		    for="demo-menu-lower-right">
+		  <li class="mdl-menu__item"><a href="{% url 'polls:profileView' %}" style="text-decoration:none; color:black;">My Profile</a></li>
+		  <li class="mdl-menu__item"><a href="{% url 'polls:logout' %}" style="text-decoration:none; color:black">Logout</a></li>
+		</ul>
+      </ul>
+    </div>
+  </div>
+  
+</nav>
+{% endif %}
+
+
+<div class="jumbotron" style="background-color:#FB8C00">
+	<div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+    <h1 style="color:#FFEBEE;">About &amp Concept</h1>
+    </div>
+    <div class="col-sm-2"></div>
+    </div>
+ </div>
+ <div class="container">
+  <div id="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+  Let us make the concept clear by a fundamantal way of answering the Five <strong>W</strong>s.<br>
+  </div>
+  <div class="col-sm-2"></div>
+  </div>
+  <div class="row">
+  <div class="col-sm-2"></div>
+   <div class="col-sm-8" style="margin-top:2%">
+     1. <b><i>WHAT</i></b> - What is Opinifyme! ? 
+     Opinify Me is a platform created for the sole purpose of informing the peeps out there like you. This involves informing about various topics in regards of what the majority of the people think of it . Moreover , not only you get to know about the opinions but also the opinions are concise , thus understanding and comprehending them beacomes easier than ever.
+     Now , you must be thinking that this exercise is not a very fruitfull one or cant be put to any practical uses. Continue with me onto the next section on the second <strong>W</strong> , where I explain why the above doubt is invalid.
+
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-sm-2"></div>
+   <div class="col-sm-8" style="margin-top:2%">
+     2. <b><i>Why</i></b> - Why should I visit Opinifyme! ? 
+     Well , certainly it a lot more worth than you think it is . Let me give you an example , how many times have you heard the following statement:- <br><br><div style="text-align:center"> <strong>"According to a research / study , it is proven that (some random true/untrue fact)". </strong></div> <br>Now , when we genrally hear this sort of stuff , most of us tend to believe whatever is told to us. And I am not claiming that any of those are false. Now , what I am trying to say is that rather than blindly following one single person's insights or credibilty , how about we try getting opinions from more enlightened peeps out there. This will not only help you avoid the partially correct/incorrect opinion on a matter , but also , help you form a confidence factor on your opinion since you have abackup source with you to prove. However,trust me when you have the correct knowledge , you simply cannot be challenged.<br>
+     There is another theory I would like to share which I think lies perfectly in the WHY section since it gives one of the concrete reasons of bending towards other's opinion. This theory is backed up by a brilliant book <a href="https://en.wikipedia.org/wiki/The_Wisdom_of_Crowds"><strong>The Wisdom Of Crowds</strong></a> by James Surowiecki. The crux of this book is <strong>"Why the Many Are Smarter than the Few"</strong>. More and more the brains and perspectives the better and correct face of the concept is in front of you. Having said that ,getting the opinions and putting them to use is one half of the cycle. We need your opinion too in this billateral process, because we believe every person int the world has something to contribute. But one thing promised, that is the one and only thing we want from you, and ofcourse your name to welcome you back here.
+     Last but not the least , according to an observation commonly known as <a href="https://en.wikipedia.org/wiki/1%25_rule_(Internet_culture)">1% rule</a> when refered to internet. It states that that only 1% of the users of a website actively create new content, while the other 99% of the participants only lurk. Participating in this simple useful activity also gets you out of the lurkers category and gets you in the category of the contributors. So keep Opinifying! 
+
+  </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      3. <b><i>Who</i></b> - Who should visit Opinifyme! ?
+      Anyone , who knows how to communicate can and should help himself by using the platform. Knowledge and its correctness is always a keen factor when a peron is exposed to the external world. Therefore anyone with sufficient interaction with the world outside or with a curiosity of a child (not necessarily a child) can use this.
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      4. <b><i>When</i></b> - When should I visit Opinifyme! ?
+      Now is a good time. You have reached and are reading the about page. Certainly now would be the best time to give it a try.
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      5. <b><i>Where</i></b> - Where should I visit Opinifyme! ?
+      Since you are reading this article on <a href="www.opinifyme.tk">OpinifyME!</a> , seems you already have answer to this question. 
+      {% if user.first_name %}
+      Since you are already logged in , hit on the All categories button in the navigation Bar on top, pick a topic that suits you and kick it off. Opinify Yourself!
+      {%endif%}
+      {% if not user.first_name %}
+      Why not kick it off by registering,if not already done that. Login and Opinify Yourself!
+      {%endif%}
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+  </div>
+ </div>
+    
+  <div style="width:101%;">
+  	<footer class="mdl-mini-footer myfooter" style="margin-top:4%;">
+      <div class="mdl-mini-footer--left-section">
+      <div class="mdl-logo" style="padding-left:3%">Designed and developed by Sharad Dargan</div>
+      <ul class="mdl-mini-footer--link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy &amp; Terms</a></li>
+    </ul>
+  </div>
+</footer>
+</div>
+	</body>
+	</html>

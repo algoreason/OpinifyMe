@@ -112,6 +112,15 @@ def vote(request,question_id):
         voted.save()
     return HttpResponseRedirect(reverse('polls:results',args=(v.id,)))
 
+def about(request):
+    if 'user_idname' in request.session:
+        user=User.objects.get(username=request.session['user_idname'])
+        context={'user':user}
+        return render(request,'polls/about.html',context)
+    else:
+        print("here")
+        return render(request,'polls/about.html',{})
+
 def categoryInit(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect("/login/")
