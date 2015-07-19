@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>About Me- Sharad Dargan</title>
+{% load staticfiles %}
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- The Ones from google (the real deal)-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.red-blue.min.css" />  
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  
+  <style type="text/css">
+@media screen and (min-width:768px){
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.mybrand{
+        	font-size:180%; padding-top:20%;
+        }
+        
+.mycard{
+  margin-left: 15%;
+}
+}
+.row{
+			width: 100%;
+}
+.img-responsive{
+  max-height: 300px;
+}
+.img{
+  vertical-align: bottom;
+}
+@media screen and (max-width:768px){
+	.myrow1{
+		margin-left: 1%;
+
+	}
+  .img-responsive{
+    padding-left: 30%;
+  }
+  .myQ{
+  margin-left: 33%
+}
+.mychoice{
+  margin-left: 30%
+}
+.myQues{
+  margin-left: 7%;
+	}
+}
+.navbar{
+	margin-bottom: 0;
+}
+
+.material-icons.orange600 { color: #FB8C00; }
+    .material-icons.green500 { color: #4CAF50; }
+    .material-icons.blue500 { color: #03A9F4 }
+    .material-icons.red500 { color: #F44336 }
+.material-icons.md-48 { font-size: 48px; }
+
+            body{
+            	background-image: url("grey.png");
+
+        }
+        .link-undecorated{
+        	text-decoration: none;
+        }
+        .row1{
+          margin-top: 5%;
+        }
+        .row3{
+          margin-top: 2%;
+        }
+        .demo-card-square.mdl-card {
+    width: 320px;
+    height: 320px;
+  }
+  .demo-card-square > .mdl-card__title {
+    color: #fff;
+    background:
+      url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
+  }
+  </style>
+  </head>
+  <body>
+  	
+<div class="jumbotron" style="background-color:#4CAF50; padding:0%;">
+	<div class="row">
+	   <div class="col-sm-2"></div>
+	   <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-10">
+          <h1 style="color:white;">Sharad Dargan</h1>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <ul type="disc">
+            <h4 style="color:white;"><li>Web Developer and more.</li></h4>
+          </ul>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <ul type="disc">
+            <h4 style="color:white;"><li>Knows Java.</li></h4>
+          </ul>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+      </div>
+    
+    <div class="col-sm-4">
+      <img class="img-responsive" src="{% static 'polls/img/Sharad.png' %}" alt="Photo">
+    </div>
+    
+    </div>
+ </div>
+    
+    <div class="container">
+    <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color:#4CAF50; text-align:center; color:white">About me</div>
+          <div class="panel-body">I, Sharad Dargan, am a Web developer and designer living in Delhi, India. I am currently pursuing Bachelor of Technology from Maharaja Agrasen Institute of Technology, Rohini, Delhi. I like designing and developing websites, however I tend to lean more towards functionality and core of a website. <br>
+        But , the above mentioned skills are all a consequence of another primary task, I enjoy, which essentially is learning. Learning about the topics (new or the explored) that interest me is my all time favourite activity.<br>
+        The goal that lies around me currently is, to become a well-informed and a successful person in all technologies I like.
+
+        </div>
+        </div>
+        
+
+    
+    <div class="col-sm-1"></div>
+    </div>
+    </div>
+    
+    <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color:#4CAF50; text-align:center; color:white">Scholastics</div>
+          <div class="table-responsive">
+            <table class="table">
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>School</th>
+        <th>Board / University</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>10<sup>th</sup></td>
+        <td>St. Marks Senior Secondary Public School, Meera Bagh</td>
+        <td>Central Board of Secondary Education(C.B.S.E)</td>
+        <td>87.2 %</td>
+      </tr>
+      <tr>
+        <td>12<sup>th</sup></td>
+        <td>St. Marks Senior Secondary Public School, Meera Bagh</td>
+        <td>Central Board of Secondary Education(C.B.S.E)</td>
+        <td>85.5 %</td>
+      </tr>
+      <tr>
+        <td>Bachelor of Technology (Pursuing)</td>
+        <td>Maharaja Agrasen Institute of Technology, Delhi</td>
+        <td>Guru Gobind Singh Indraprastha University</td>
+        <td>79.6% (upto 5th Semester)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+          
+        </div>
+        
+
+    </div>
+    <div class="col-sm-1"></div>
+    </div>
+    
+    <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color:#4CAF50; text-align:center; color:white">Technical Skills</div>
+          
+            <div class="list-group" style="margin-bottom:0%">
+              <a class="list-group-item">1. Java - Certainly ,my most proficient language.</a>
+              <a class="list-group-item">2. Django Web Framework - Learning and improving</a>
+              <a class="list-group-item">3. Python - Mostly employed alogside Django.</a>
+              <a class="list-group-item">4. HTML,CSS,Javascript - Mostly employed alongside Bootstrap</a>
+              <a class="list-group-item">5. Realtional DBMS (MYSQL)</a>
+              <a class="list-group-item">6. C,C++ - The ones I started with</a>
+              <a class="list-group-item">7. JSP,Servlets - Just because of Java.</a>
+            </div>
+        
+        </div>
+        
+
+    </div>
+    <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color:#4CAF50; text-align:center; color:white">Projects Undertaken</div>
+
+         <div class="row" style="margin-top:3%;">
+         <div class="col-sm-6">
+        
+
+          <div class="mdl-card mdl-shadow--2dp demo-card-square mycard">
+          <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text">ManageIt!</h2>
+          </div>
+          <div class="mdl-card__supporting-text">
+            This project dealt with avoiding paper work in certain businesses and switching over to computerized billing of items for a well-organized manner. This Software is solely Java based, therefore ensuring of its light-weightiness. Entire GUI is based on Swing, and the Database employed is MySQL. The software serves as a billing system, management system for the stock and various other functional features.
+          </div>
+          <div class="mdl-card__actions mdl-card--border">
+            <p>
+              Platform : JAVA
+            </p>
+          </div>
+        </div>
+
+         </div>
+         <div class="col-sm-6">
+          <div class="mdl-card mdl-shadow--2dp demo-card-square mycard">
+          <div class="mdl-card__title mdl-card--expand" style="background-color:#3F51B5">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="text-decoration:none; color:white">
+            <h2 class="mdl-card__title-text">Opinify Me!</h2>
+           </a>
+          </div>
+          <div class="mdl-card__supporting-text">
+           OpinifyMe! is a platform created for the sole purpose of informing the people with the most agreed upon opinions. This involves informing about various topics in regards of what the majority of the people think of it . The Design of the website is inspired from the material desgin as illustarted by Google.
+          </div>
+          <div class="mdl-card__actions mdl-card--border">
+            <p>
+              Platform : Django Web Framework
+            </p>
+          </div>
+         </div>
+         
+         </div>
+        </div>
+
+          <div class="row" style="margin-top:3%;">
+         <div class="col-sm-6">
+          <div class="mdl-card mdl-shadow--2dp demo-card-square mycard">
+          <div class="mdl-card__title mdl-card--expand" style=" background-color:#2196F3">
+            <h2 class="mdl-card__title-text">Pin2Pc.in</h2>
+          </div>
+          <div class="mdl-card__supporting-text">
+            <a href="http://www.pin2pc.in" target="_blank">Pin2Pc</a> is a portfolio website of Computer hardware and repair business located in Rohini. It is a static website based on HTML,CSS and Javascript. Certain library including bootstrap and JQuery have also been used.
+            </div>
+          <div class="mdl-card__actions mdl-card--border">
+            <p>
+              Platform : HTML,CSS &amp Bootstrap
+            </p>
+          </div>
+        </div>
+
+         </div>
+         <div class="col-sm-6">
+          <div class="mdl-card mdl-shadow--2dp demo-card-square mycard">
+          <div class="mdl-card__title mdl-card--expand" style="background-color:#F44336">
+            <h2 class="mdl-card__title-text">Tower Of Hanoi - A Game</h2>
+          </div>
+          <div class="mdl-card__supporting-text">
+           This project is GUI representation of the infamous Tower of Hanoi problem. The user can operate the software in the form of a game so as to solve the tower of Hanoi problem and even gets the solution if unable to solve the problem. This is also based on swing (Java).
+          </div>
+          <div class="mdl-card__actions mdl-card--border">
+            <p>
+              Platform : JAVA
+            </p>
+          </div>
+         </div>
+         
+         </div>
+        </div>
+        
+
+        
+
+    </div>
+    </div>
+    <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="background-color:#4CAF50; text-align:center; color:white">Certifications</div>
+          <div class="panel-body">
+          <strong>Certification in Java</strong> - Certified under the "Certificaton in Java" Program by Oracle. Program was undertaken at the NIIT Institute which included Java(core) and Advanced Java.
+          </div>
+          </div>
+          </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="background-color:#4CAF50; text-align:center; color:white">Interests</div>
+          <div class="panel-body">
+          <div class="list-group" style="margin-bottom:0%">
+              <a class="list-group-item">1. Programming</a>
+              <a class="list-group-item">2. Designing</a>
+              <a class="list-group-item">3. Fitness - oriented excercises</a>
+              
+            </div>
+          </div>
+          </div>
+          </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="background-color:#4CAF50; text-align:center; color:white">Other skills &amp qualities</div>
+          <div class="panel-body">
+          <div class="list-group"  style="margin-bottom:0%">
+              <a class="list-group-item">1. Positive attitude towards work.</a>
+              <a class="list-group-item">2. Focus only on goals, while seriously working towards them.</a>
+              <a class="list-group-item">3. Ability to Work Independently and Within Groups</a>
+              <a class="list-group-item">4. Analytical Thinking</a>
+              <a class="list-group-item">5. Generally follow the bottom-up approach towards complex problems.</a>
+            </div>
+          </div>
+          </div>
+          </div>
+      <div class="col-sm-1"></div>
+    </div>
+</div>
+  	<footer class="mdl-mini-footer myfooter" style="margin-top:4%;">
+      <div class="mdl-mini-footer--left-section">
+      <div class="mdl-logo" style="padding-left:3%">Designed and developed by Sharad Dargan</div>
+      <ul class="mdl-mini-footer--link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy &amp; Terms</a></li>
+    </ul>
+  </div>
+</footer>
+
+	</body>
+	</html>

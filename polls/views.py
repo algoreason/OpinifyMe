@@ -136,6 +136,9 @@ def questionsByCat(request,category_id):
     context={'question_list':questions,'category':category,'username':User.objects.get(username = request.session['user_idname'])}
     return render(request,'polls/ViewByIndex.html',context)
 
+def me(request):
+    return render(request,'polls/sharad.html',{})
+
 def profileView(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect("/login/")
