@@ -69,6 +69,8 @@
     .material-icons.green500 { color: #4CAF50; }
     .material-icons.blue500 { color: #03A9F4 }
     .material-icons.red500 { color: #F44336 }
+    .material-icons.purple500 { color: #9C27B0 }
+
 .material-icons.md-48 { font-size: 48px; }
 
             body{
@@ -97,6 +99,22 @@
   </head>
   <body>
   	
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#scholastic"><i class="material-icons orange600">book</i><div> Scholastics</div></a></li>
+        <li><a href="#tech_skills"><i class="material-icons red500">build</i><div> Technical Skills</div></a></li>
+        <li><a href="#projects"><i class="material-icons green500">developer_model</i><div>Projects</div> </a></li> 
+        <li><a href="#certification"> <i class="material-icons blue500">assignment_turned_in</i><div>Certifications</div></a></li> 
+        <li><a href="#other_skills"><i class="material-icons purple500">reorder</i><div>Interests &amp Other Skills</div></a></li> 
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
 <div class="jumbotron" style="background-color:#4CAF50; padding:0%;">
 	<div class="row">
 	   <div class="col-sm-2"></div>
@@ -153,7 +171,7 @@
     </div>
     </div>
     
-    <div class="row">
+    <div id="scholastic" class="row">
     <div class="col-sm-1"></div>
     <div class="col-sm-10">
         <div class="panel panel-default">
@@ -198,7 +216,7 @@
     <div class="col-sm-1"></div>
     </div>
     
-    <div class="row">
+    <div id="tech_skills" class="row">
     <div class="col-sm-1"></div>
     <div class="col-sm-10">
         <div class="panel panel-default">
@@ -221,7 +239,7 @@
     <div class="col-sm-1"></div>
     </div>
 
-    <div class="row">
+    <div id="projects" class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <div class="panel panel-default">
@@ -308,7 +326,7 @@
     </div>
     <div class="col-md-1"></div>
     </div>
-    <div class="row">
+    <div id="certification" class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-10">
       <div class="panel panel-default">
@@ -321,7 +339,7 @@
       <div class="col-sm-1"></div>
     </div>
 
-    <div class="row">
+    <div id="other_skills" class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-10">
       <div class="panel panel-default">
@@ -368,5 +386,16 @@
   </div>
 </footer>
 
+
+<script type="text/javascript">
+  var $root = $('html, body');
+$('a').click(function() {
+    $root.animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 750);
+    return false;
+});
+
+</script>
 	</body>
 	</html>
