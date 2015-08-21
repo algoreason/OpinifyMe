@@ -8,6 +8,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <!-- The Ones from google (the real deal)-->
+  {% load staticfiles %}
+  <script type="text/javascript" src="{% static 'polls/Register/script.js' %}"></script>
   <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.green-blue.min.css" /> 
   <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -101,11 +103,15 @@ body{
                  <input class="mdl-textfield__input" name="password" type="password" id="pwd" />
                  <label class="mdl-textfield__label" for="pwd">Password</label>
               </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                 <input class="mdl-textfield__input" name="password" type="password" id="re-pwd" />
+                 <label class="mdl-textfield__label" for="pwd">Re-enter Password</label>
+              </div>
 				  		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
                   <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked />
                   <span class="mdl-checkbox__label">I agree to the terms of service.</span>
                 </label>
-				  			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent login-button-custom">
+				  			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent login-button-custom" onclick="return validate()">
                   SIGNUP
                 </button>
 						</form>
@@ -117,7 +123,25 @@ body{
   	</div>
   	<div class="col-sm-3"></div>
 </div>
-	
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Error!</h4>
+        </div>
+        <div class="modal-body">
+          <p id="modal-body-content">heheh</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </div>
 <footer class="mdl-mini-footer">
   <div class="mdl-mini-footer--left-section">
