@@ -36,6 +36,27 @@ body{
   margin-left: 40%
 }
 </style>
+<script type="text/javascript">
+  function validate(){
+    
+    if(document.getElementById('uname').value==""){
+     $('#modal-body-content').text("Please enter a username.");
+      $('#myModal').modal('toggle');
+      return false; 
+    }
+    else if(document.getElementById('pwd').value==""){
+     $('#modal-body-content').text("Please enter a password.");
+      $('#myModal').modal('toggle');
+      return false; 
+    }
+    else if(!document.getElementById('checkbox-1').checked){
+      $('#modal-body-content').text("Please check the check box, to agree to the terms and conditions.");
+      $('#myModal').modal('toggle');
+      return false;
+    }
+    return true;
+  }
+</script>
 </head>
 <body>
 
@@ -103,9 +124,7 @@ body{
                   <span class="mdl-checkbox__label">I agree to the terms of service.</span>
                 </label>
 
-
-				  			<!-- Accent-colored raised button with ripple -->
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent login-button-custom">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent login-button-custom" onclick="return validate()">
                   Login
                 </button>
 
@@ -118,7 +137,25 @@ body{
   	</div>
   	<div class="col-sm-3"></div>
 </div>
-	
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Error!</h4>
+        </div>
+        <div class="modal-body">
+          <p id="modal-body-content">heheh</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </div>
 <footer class="mdl-mini-footer">
   <div class="mdl-mini-footer--left-section">
