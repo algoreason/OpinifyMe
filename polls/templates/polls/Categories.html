@@ -108,9 +108,12 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#"><i class="material-icons orange600">dashboard</i> <div>All Categories</div></a></li>
-        
+        {%if username%}
+        <li><a href="{% url 'polls:newQuestion' %}"><i class="material-icons red500">add</i> <div>Add Question</div></a></li> 
+        {%endif%}
         <li><a href="{% url 'polls:about' %}"><i class="material-icons green500">info_outline</i> </span><div> About</div></a></li> 
         <li><a href="#"><i class="material-icons red500">help</i> <div>F.A.Q.</div></a></li> 
+        
       </ul>
       <ul class="nav navbar-nav navbar-right">
       

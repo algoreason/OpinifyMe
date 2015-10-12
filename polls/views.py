@@ -2,11 +2,12 @@ from django.shortcuts import render,get_object_or_404,redirect
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from .models import Question,Choice,Category,Voted
+from .models import *
 from django.views import generic
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from django.views.decorators.csrf import csrf_exempt
 
 def loginInitialization(request):
 	if 'user_idname' in request.session:
@@ -142,9 +143,39 @@ def me(request):
 def profileView(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect("/login/")
+    print(request.user.email)
     user=User.objects.get(username=request.session['user_idname'])
     voted=Voted.objects.filter(username=user)
     question=Question.objects.all()
     choice=Choice.objects.all()
     context={'user':user,'voted':voted,'question':question,'choice':choice}
-    return render(request,'polls/profileView.html',context)    
+    return render(request,'polls/profileView.html',context)
+
+def newQuestion(request):
+    category=Category.objects.all()
+    context = {"categories":category,"username":request.user}    
+    return render(request,'polls/addQuestion.html',context)    
+
+def addQues(request):
+    text = request.POST.get('text',False)
+    opt = []
+    for i in range(1,5):
+        opt.append(request.POST.get('opt'+str(i)+'',False))
+    cat = request.POST.get('cat')
+    print(text)
+    category = get_object_or_404(Category, category_name = cat)
+    q=Question(question_text = text,category_id = category,pub_date = timezone.now )
+    q1 = Question.objects.get(id=1)
+    for i in range(0,4):
+        c=Choice(choice_text=opt[i], question=q1)
+        print(c)
+    return HttpResponseRedirect("/"+str(q1.id)+"/")
+
+@csrf_exempt
+def addComments(request):
+    text=request.POST.get('text',False)
+    q_id=request.POST.get('q_id',False)
+    q=get_object_or_404(Question, id=q_id)
+    comment = Comments(text=text,question=q)
+    print(comment)
+    return HttpResponse(comment)
