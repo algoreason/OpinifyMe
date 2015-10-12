@@ -15,8 +15,8 @@ class SessionAdmin(admin.ModelAdmin):
     list_display = ['session_key', '_session_data', 'expire_date']
 
 class CategoryAdmin(admin.ModelAdmin):
-    fieldsets=[('Category Info', {'fields':['category_id','category_name','category_color']}),]
-    list_display = ('category_id','category_name')
+    fieldsets=[('Category Info', {'fields':['id','category_name','category_color']}),]
+    list_display = ('id','category_name')
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets=[
@@ -24,7 +24,7 @@ class QuestionAdmin(admin.ModelAdmin):
         ('Date Info', {'fields':['pub_date'],'classes':['collapse']}),
         ]
     inlines = [ChoiceInLine]
-    list_display = ('question_text','pub_date','category_id', 'was_published_recently')
+    list_display = ('question_text','pub_date','id', 'was_published_recently')
     list_filter = ['pub_date']
     search_fields = ['question_text']
 

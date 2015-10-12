@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Add New Question - Opinify Me</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!-- The Ones from google (the real deal)-->
+  {% load staticfiles %}
+  <script type="text/javascript" src="{% static 'Register/script.js' %}"></script>
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.green-blue.min.css" /> 
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style type="text/css">
+@media screen and (min-width:768px){
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.myfooter{
+  position: relative;
+  bottom:0%;
+  width: 101%;
+}
+}
+.navbar{
+  margin-bottom: 0;
+}
+.material-icons.orange600 { color: #FB8C00; }
+    .material-icons.green500 { color: #4CAF50; }
+    .material-icons.blue500 { color: #03A9F4 }
+    .material-icons.red500 { color: #F44336 }
+.material-icons.md-48 { font-size: 48px; }
+body{
+  background-color: #E8F5E9;
+}
+
+.login-button-custom{
+  margin-top: 4%;
+  margin-left: 40%
+}
+</style>
+
+</head>
+<body>
+
+
+  
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand mybrand" href="#"><div>OpinifyMe</div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+         <li><a href="{% url 'polls:categoryInit' %}"><i class="material-icons orange600">dashboard</i> <div>All Categories</div></a></li>
+        {%if username%}
+        <li class="active"><a href="#"><i class="material-icons red500">add</i> <div>Add Question</div></a></li> 
+        {%endif%}
+        <li><a href="{% url 'polls:about' %}"><i class="material-icons green500">info_outline</i> </span><div> About</div></a></li> 
+        <li><a href="#"><i class="material-icons red500">help</i> <div>F.A.Q.</div></a></li> 
+        
+      </ul>
+       <ul class="nav navbar-nav navbar-right">
+    {%if username%}
+     
+    <li class="dropdown">
+    <a class="dropdown-toggle" id="demo-menu-lower-right" data-toggle="dropdown" href="#"><i class="material-icons blue500">face</i><div>
+    Hi {{ username.first_name }}
+    </div>
+    </a>
+    </li>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+        for="demo-menu-lower-right">
+      <li class="mdl-menu__item"><a href="{%url 'polls:profileView'%}" style="text-decoration:none; color:black;">My Profile</a></li>
+      <li class="mdl-menu__item"><a href="{%url 'polls:logout'%}" style="text-decoration:none; color:black">Logout</a></li>
+    </ul>
+      
+      {%else%}
+      <a href="{%url 'polls:loginInitialization' %}"><i class="material-icons"></i><div> Hi Guest (Login) </div></a>
+      {%endif%}
+      </ul>
+    </div>
+  </div>
+  
+</nav>
+<div class="jumbotron" style="background-color:#4CAF50">
+  <div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+    <h1 style="color:#E8F5E9; margin-left:2%;">Have your own doubts ?</h1>
+    <p style="color:#C8E6C9; margin-left:15%;">Write them here to get the opinions!</p>
+    </div>
+    
+    <div class="col-sm-3"></div>
+    </div>
+ </div>
+<div class="container-fluid">
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-body" style="background-color:#4CAF50; color:#E8EAF6; text-align:center;">Add a Question</div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+            {%if username%}
+              <form  action="{% url 'polls:addQues' %}"  method="POST" role="form" >
+              {%  csrf_token %}
+              <div class="form-group">
+              <label for="sel1">Select a Category</label>
+              <select class="form-control" name="cat" id="sel1">
+                {%for cat in categories%}
+                  <option>{{cat.category_name}}</option>
+                {%endfor%}
+              </select>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield">
+                <textarea class="mdl-textfield__input" name="text" type="text" rows= "3" id="question_text" ></textarea>
+                <label class="mdl-textfield__label" for="question_text">What is your question ?</label>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield">
+                <textarea class="mdl-textfield__input" name="opt1" type="text" rows= "1" id="opt1" ></textarea>
+                <label class="mdl-textfield__label" for="opt1">Option 1</label>
+              </div>
+              
+              <div class="mdl-textfield mdl-js-textfield">
+                <textarea class="mdl-textfield__input" name="opt2" type="text" rows= "1" id="opt2" ></textarea>
+                <label class="mdl-textfield__label" for="opt2">Option 2</label>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield">
+                <textarea class="mdl-textfield__input" name="opt3" type="text" rows= "1" id="opt3" ></textarea>
+                <label class="mdl-textfield__label" for="opt3">Option 3</label>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield">
+                <textarea class="mdl-textfield__input" name="opt4" type="text" rows= "1" id="opt4" ></textarea>
+                <label class="mdl-textfield__label" for="opt4">Option 4</label>
+              </div>
+
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent login-button-custom">
+                  POST
+              </button>
+            </form>
+            {%else%}
+              You need to be logged in to Add a post of your own.
+            {%endif%}
+          </div>
+          <div class="col-sm-3"></div>
+          </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+  
+</div>
+<div style="width:101%;">
+    <footer class="mdl-mini-footer myfooter" style="margin-top:4%;">
+      <div class="mdl-mini-footer--left-section">
+      <div class="mdl-logo" style="padding-left:3%">Designed and developed by <a href="#" target="_blank">Sharad Dargan &amp Abhishek Jindal</a></div>
+      <ul class="mdl-mini-footer--link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy &amp; Terms</a></li>
+    </ul>
+  </div>
+</footer>
+</div>
+
+</body>
+</html>

@@ -18,4 +18,7 @@ urlpatterns = [
     url(r'^(?P<question_id>[0-9]+)/results/(?P<already>[a-z])*$',views.results,name='results'),
     url(r'^(?P<question_id>[0-9]+)/vote/$',views.vote,name='vote'),
     url(r'^profileView/$',views.profileView,name='profileView'),
+    url(r'^addQues/$',views.addQues,name='addQues'),
+    url(r'^addComment/$',views.addComments,name='addComment'),
+    url(r'^newQuestion/$',views.newQuestion,name='newQuestion'),
 ]

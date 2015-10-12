@@ -88,9 +88,12 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="{% url 'polls:categoryInit' %}"><i class="material-icons orange600">dashboard</i> <div>All Categories</div></a></li>
-        
+        {%if username%}
+        <li ><a href="{% url 'polls:newQuestion' %}"><i class="material-icons red500">add</i> <div>Add Question</div></a></li> 
+        {%endif%}
         <li><a href="#"><i class="material-icons green500">info_outline</i> </span><div> About</div></a></li> 
         <li><a href="#"><i class="material-icons red500">help</i> <div>F.A.Q.</div></a></li> 
+        
       </ul>
       <ul class="nav navbar-nav navbar-right">
       
@@ -120,9 +123,9 @@
       {% for question in question_list %}
       <a href="{% url 'polls:detail' question.id %}" class="list-group-item">{{forloop.counter}} . {{question.question_text }}</a>
       {% endfor %}
-</div>
+      </div>
     </div>
-  <div style="width:101%;">
+<div style="width:101%;">
   	<footer class="mdl-mini-footer myfooter" style="margin-top:4%;">
       <div class="mdl-mini-footer--left-section">
       <div class="mdl-logo" style="padding-left:3%">Designed and developed by <a href="{% url 'polls:me' %}" target="_blank">Sharad Dargan</a></div>
