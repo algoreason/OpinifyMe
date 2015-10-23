@@ -91,10 +91,13 @@ def results(request,question_id,already):
     for c in choice_list:
     	print c.votes
     choice_percent = [ float(float(x.votes *100)/ sum1) for x in choice_list]
+    cp1=str(choice_percent[0])
+    cp2="Here"
+    context ={}
     if already:
-        context={'question':question,'choice_set':choice_list,'choice_percent':choice_percent,'sum1':sum1,'voted':voted,'username':user}    
+        context={'question':question,'choices':choice_list,'choicepercent':choice_percent,'sum1':sum1,'voted':voted,'username':user,'cp1':cp1,'cp2':cp2}    
     else:
-        context={'question':question,'choice_set':choice_list,'choice_percent':choice_percent,'sum1':sum1,'username':user}
+        context={'question':question,'choices':choice_list,'choicepercent':choice_percent,'sum1':sum1,'username':user,'cp1':cp1,'cp2':cp2}
     return render(request,'polls/results.html',context)
 
 def vote(request,question_id):

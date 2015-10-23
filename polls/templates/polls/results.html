@@ -145,7 +145,7 @@
     <div class="col-sm-6">
     <div class="list-group">
     <p class="list-group-item" style="text-align:center; background-color:#4CAF50; color:white">Options</p>
-    {% for choice in choice_set %}
+{% for choice in question.choice_set.all %}
       <a class="list-group-item" style="text-align:center">{{forloop.counter}} . {{choice.choice_text}}</a>
       {% endfor %}
       </div>
@@ -210,8 +210,8 @@
     $(document).ready(function ()
     {
         var data = [
-        {% for cp in choice_percent %}
-        {{ cp }}
+        {% for choice in question.choice_set.all %}
+        {{ choice.votes }}
         {% if forloop.counter != 4%}
         ,
         {%endif %}
