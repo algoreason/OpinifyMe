@@ -1,5 +1,4 @@
 function validate(){
-	alert('Called');    
     if(document.getElementById('uname').value==""){
      $('#modal-body-content').text("Please enter a username.");
       $('#myModal').modal('toggle');

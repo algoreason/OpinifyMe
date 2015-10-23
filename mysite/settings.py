@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 't3xbwok(df_n^9#*8pdm0p5w%g1c7n4@)5&9_7sbhn&ycaq#j@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['www.opinifyme.tk','opinifyme.tk']
 
