@@ -80,19 +80,21 @@ def results(request,question_id,already):
         return HttpResponseRedirect("/login/")
     username=request.session['user_idname']
     user=User.objects.get(username=username)
-    question=Question.objects.get(id=question_id)
+    question=get_object_or_404(Question,id=question_id)
     voted=Voted.objects.filter(question_id=question,username=user)
+    choice_list = question.choice_set.all()
     sum1=0
-    for choice in question.choice_set.all():
+    for choice in choice_list:
         sum1 = sum1 + choice.votes
-    
     if not voted:
         return HttpResponseRedirect("/"+question_id+"/vote/")
-    question=get_object_or_404(Question,id=question_id)
+    for c in choice_list:
+    	print c.votes
+    choice_percent = [ float(float(x.votes *100)/ sum1) for x in choice_list]
     if already:
-        context={'question':question,'sum1':sum1,'voted':voted,'username':user}    
+        context={'question':question,'choice_set':choice_list,'choice_percent':choice_percent,'sum1':sum1,'voted':voted,'username':user}    
     else:
-        context={'question':question,'sum1':sum1,'username':user}
+        context={'question':question,'choice_set':choice_list,'choice_percent':choice_percent,'sum1':sum1,'username':user}
     return render(request,'polls/results.html',context)
 
 def vote(request,question_id):
