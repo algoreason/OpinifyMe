@@ -5,5 +5,5 @@ venv
 db.sqlite3
 .DS_Store
 migrations
-dumps/*.sql
 static1
+settings.py

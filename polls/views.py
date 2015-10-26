@@ -169,12 +169,11 @@ def addQues(request):
     cat = request.POST.get('cat')
     print(text)
     category = get_object_or_404(Category, category_name = cat)
-    q=Question(question_text = text,category_id = category,pub_date = timezone.now )
-    q1 = Question.objects.get(id=1)
+    q=Question.objects.create(question_text = text,category_id = category,pub_date = timezone.now() )
     for i in range(0,4):
-        c=Choice(choice_text=opt[i], question=q1)
-        print(c)
-    return HttpResponseRedirect("/"+str(q1.id)+"/")
+        c=Choice(choice_text=opt[i], question=q)
+        c.save()
+    return HttpResponseRedirect("/"+str(q.id)+"/")
 
 @csrf_exempt
 def addComments(request):

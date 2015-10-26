@@ -91,7 +91,7 @@
         {%if username%}
         <li ><a href="{% url 'polls:newQuestion' %}"><i class="material-icons red500">add</i> <div>Add Question</div></a></li> 
         {%endif%}
-        <li><a href="#"><i class="material-icons green500">info_outline</i> </span><div> About</div></a></li> 
+        <li><a href="{% url 'polls:about' %}"><i class="material-icons green500">info_outline</i> </span><div> About</div></a></li> 
         <li><a href="#"><i class="material-icons red500">help</i> <div>F.A.Q.</div></a></li> 
         
       </ul>
@@ -128,7 +128,7 @@
 <div style="width:101%;">
   	<footer class="mdl-mini-footer myfooter" style="margin-top:4%;">
       <div class="mdl-mini-footer--left-section">
-      <div class="mdl-logo" style="padding-left:3%">Designed and developed by <a href="{% url 'polls:me' %}" target="_blank">Sharad Dargan</a></div>
+      <div class="mdl-logo" style="padding-left:3%">Designed and developed by <a href="{% url 'polls:me' %}" target="_blank">Sharad Dargan</a> &amp Abhishek Jindal</div>
       <ul class="mdl-mini-footer--link-list">
       <li><a href="#">Help</a></li>
       <li><a href="#">Privacy &amp; Terms</a></li>
