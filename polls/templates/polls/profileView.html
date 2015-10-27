@@ -174,7 +174,7 @@
 <div class="container">
 
     <div class="panel panel-default">
-    <div class="panel-heading" style="background-color:#009688; text-align:center; color:white;">Account History</div>
+    <div class="panel-heading" style="background-color:#009688; text-align:center; color:white;">Questions voted</div>
   <div class="panel-body">
       <div class="list-group">
   {% for vote in voted %}
@@ -195,6 +195,30 @@
 </div>
     </div>
     </div>
+    {% if questions %}
+    <div class="panel panel-default">
+    <div class="panel-heading" style="background-color:#009688; text-align:center; color:white;">Questions added</div>
+  <div class="panel-body">
+      <div class="list-group">
+  {% for question in questions %}
+  <a class="list-group-item">
+  <div class="row">
+  <div class="col-sm-5">
+  {{ question.question_text }}
+  </div>
+  <div class="col-sm-4">
+  | {{ question.category_id }}
+  </div>
+  <div class="col-sm-3">
+  | {{question.pub_date}}
+  </div>
+  </div>
+  </a>
+  {% endfor%}
+</div>
+    </div>
+    </div>
+    {% endif %}
 </div>
   <div style="width:101%;">
   	<footer class="mdl-mini-footer myfooter" style="margin-top:4%;">

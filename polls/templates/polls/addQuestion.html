@@ -9,7 +9,20 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <!-- The Ones from google (the real deal)-->
   {% load staticfiles %}
-  <script type="text/javascript" src="{% static 'Register/script.js' %}"></script>
+  <script type="text/javascript">
+function validate(){
+  console.log("Here")
+  if(document.getElementById('opt1').value=="" ||
+    document.getElementById('opt2').value=="" ||
+    document.getElementById('opt3').value=="" ||
+    document.getElementById('opt4').value==""){
+  $('#modal-body-content').text("Please enter all the Options!");
+      $('#myModal').modal('toggle');
+      return false; 
+  }
+  return true;
+}
+  </script>
   <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.green-blue.min.css" /> 
   <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -151,7 +164,7 @@ body{
                 <label class="mdl-textfield__label" for="opt4">Option 4</label>
               </div>
 
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent login-button-custom">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent login-button-custom" onclick="return validate()">
                   POST
               </button>
             </form>
@@ -167,6 +180,26 @@ body{
     <div class="col-sm-3"></div>
 </div>
   
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Why in so much hurry?</h4>
+        </div>
+        <div class="modal-body">
+          <p id="modal-body-content">Please fill all the required fields!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </div>
 <div style="width:101%;">
     <footer class="mdl-mini-footer myfooter" style="margin-top:4%;">

@@ -151,9 +151,11 @@ def profileView(request):
     print(request.user.email)
     user=User.objects.get(username=request.session['user_idname'])
     voted=Voted.objects.filter(username=user)
-    question=Question.objects.all()
-    choice=Choice.objects.all()
-    context={'user':user,'voted':voted,'question':question,'choice':choice}
+    try:
+    	questions = Question.objects.filter(author=user)
+    	context={'user':user,'voted':voted,'questions':questions}
+    except Question.DoesNotExist:
+    	context={'user':user,'voted':voted}
     return render(request,'polls/profileView.html',context)
 
 def newQuestion(request):
@@ -169,7 +171,8 @@ def addQues(request):
     cat = request.POST.get('cat')
     print(text)
     category = get_object_or_404(Category, category_name = cat)
-    q=Question.objects.create(question_text = text,category_id = category,pub_date = timezone.now() )
+    user=User.objects.get(username=request.session['user_idname'])
+    q=Question.objects.create(question_text = text,category_id = category,pub_date = timezone.now(),author=user )
     for i in range(0,4):
         c=Choice(choice_text=opt[i], question=q)
         c.save()
