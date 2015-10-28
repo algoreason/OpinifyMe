@@ -45,9 +45,16 @@ def index(request):
     context = {'latest_question_list': latest_question_list}
     return render(request, 'polls/index.html', context)
 
+def categoryInit(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect("/login/")
+    category_list = Category.objects.all()
+    context={'category_list':category_list,'username':User.objects.get(username = request.session['user_idname'])}
+    return render(request, 'polls/Categories.html',context)
+
 def registerInit(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect("/login/")
+        return categoryInit(request)
     return render(request, 'polls/register.html', {})    
 
 def register(request):
@@ -56,11 +63,18 @@ def register(request):
     password=request.POST['password']
     first_name=request.POST['firstname']
     last_name=request.POST['lastname']
-    user = User.objects.create_user(username,email,password)
-    user.last_name = last_name
-    user.first_name = first_name
-    user.save()
-    return HttpResponseRedirect("/login/")
+    try:    
+        user = User.objects.create_user(username,email,password)
+        user.last_name = last_name
+        user.first_name = first_name
+        user.save()
+        user=authenticate(username=username,password=password)
+        login(request,user)
+        request.session['user_idname']=username
+        return HttpResponseRedirect("/cats/")
+    except Exception as e:
+        print(e)
+        return HttpResponseRedirect("/register/")
 
 def detail(request,question_id):
     if not request.user.is_authenticated():
@@ -126,13 +140,6 @@ def about(request):
     else:
         print("here")
         return render(request,'polls/about.html',{})
-
-def categoryInit(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect("/login/")
-    category_list = Category.objects.all()
-    context={'category_list':category_list,'username':User.objects.get(username = request.session['user_idname'])}
-    return render(request, 'polls/Categories.html',context)
 
 def questionsByCat(request,category_id):
     if not request.user.is_authenticated():
