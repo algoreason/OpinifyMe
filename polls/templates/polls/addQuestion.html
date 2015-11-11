@@ -59,6 +59,11 @@ body{
   margin-top: 4%;
   margin-left: 40%
 }
+#well {
+        height: 700%;
+        margin-bottom: 0;
+        overflow: auto;
+    }
 </style>
 
 </head>
@@ -96,7 +101,11 @@ body{
           </div>
         </div>
       </form>
-        <div class="list-group" style="position:absolute;z-index:999" id="suggestion-box"></div>
+        <div class="list-group" style="position:absolute;z-index:999" id="suggestion-box">
+          <div id="well" style="position:absolute;z-index:999">
+          
+        </div>
+        </div>
         </li>
       </ul>
        <ul class="nav navbar-nav navbar-right">
@@ -229,22 +238,24 @@ body{
 </div>
 
 </body>
-<script type="text/javascript">
+  <script type="text/javascript">
   $("#sample6").keyup(function(e){
+  var suggestionbox = $("#well")
   var url ="http://opinifyme.tk/search/"+$("#sample6").val()
   console.log(url)
   $.getJSON( url, function( data ) {
     var items = [];
-    $("#suggestion-box").empty();
+    suggestionbox.empty();
     $.each( data, function( key, val ) {
-      $("#suggestion-box").append(
+      suggestionbox.append(
       "<a href=\'http://opinifyme.tk/" + key + "/\' class=\"list-group-item\">" + val + "</a>");
           });
 
     }).error(function(){
-      $("#suggestion-box").empty();
+      suggestionbox.empty();
     });
 
     });
   </script>
+
 </html>
