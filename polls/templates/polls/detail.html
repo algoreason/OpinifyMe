@@ -89,6 +89,22 @@
         {%if username%}
         <li class="active"><a href="{% url 'polls:newQuestion' %}"><i class="material-icons red500">add</i> <div>Add Question</div></a></li> 
         {%endif%}
+        <li>
+          <!-- Expandable Textfield -->
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+          <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+            <i class="material-icons">search</i>
+          </label>
+          <div class="mdl-textfield__expandable-holder">
+            <input class="mdl-textfield__input" type="text" id="sample6">
+            <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+            
+          </div>
+        </div>
+      </form>
+        <div class="list-group" style="position:absolute;z-index:999" id="suggestion-box"></div>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       
@@ -178,4 +194,22 @@
 </footer>
 </div>
 	</body>
+  <script type="text/javascript">
+  $("#sample6").keyup(function(e){
+  var url ="http://opinifyme.tk/search/"+$("#sample6").val()
+  console.log(url)
+  $.getJSON( url, function( data ) {
+    var items = [];
+    $("#suggestion-box").empty();
+    $.each( data, function( key, val ) {
+      $("#suggestion-box").append(
+      "<a href=\'http://opinifyme.tk/" + key + "/\' class=\"list-group-item\">" + val + "</a>");
+          });
+
+    }).error(function(){
+      $("#suggestion-box").empty();
+    });
+
+    });
+  </script>
 	</html>

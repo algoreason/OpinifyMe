@@ -6,8 +6,9 @@ from .models import *
 from django.views import generic
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.models import User
-from django.db.models import Sum
+from django.db.models import Sum,Q
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 def loginInitialization(request):
 	if 'user_idname' in request.session:
@@ -193,3 +194,13 @@ def addComments(request):
     comment = Comments(text=text,question=q)
     print(comment)
     return HttpResponse(comment)
+
+@csrf_exempt
+def search(request,query):
+    search_results = Question.objects.filter(question_text__contains=query)
+    print(query)
+    reqd_results = {}
+    for res in search_results:
+        reqd_results[res.id]=res.question_text
+    print(reqd_results)
+    return HttpResponse(json.dumps(reqd_results),content_type="application/json")

@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^addQues/$',views.addQues,name='addQues'),
     url(r'^addComment/$',views.addComments,name='addComment'),
     url(r'^newQuestion/$',views.newQuestion,name='newQuestion'),
+    url(r'^search/(?P<query>[a-zA-Z ]+)/$',views.search,name='search'),
 ]
