@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.db.models import Sum,Q
 from django.views.decorators.csrf import csrf_exempt
 import json
+from users.models import Country,UserProfile
 
 def loginInitialization(request):
 	if 'user_idname' in request.session:
@@ -98,21 +99,21 @@ def results(request,question_id,already):
     question=get_object_or_404(Question,id=question_id)
     voted=Voted.objects.filter(question_id=question,username=user)
     choice_list = question.choice_set.all()
-    sum1=0
-    for choice in choice_list:
-        sum1 = sum1 + choice.votes
     if not voted:
         return HttpResponseRedirect("/"+question_id+"/vote/")
-    for c in choice_list:
-    	print c.votes
-    choice_percent = [ float(float(x.votes *100)/ sum1) for x in choice_list]
-    cp1=str(choice_percent[0])
-    cp2="Here"
     context ={}
+    countries = {}
+    for vote in Voted.objects.filter(question_id = question):
+        country = UserProfile.objects.get(user = vote.username).location
+        if countries.get(country.code):
+            countries[country.code] += 1 
+        else:
+            countries[country.code] = 1
+    #countries = [countries]
     if already:
-        context={'question':question,'choices':choice_list,'choicepercent':choice_percent,'sum1':sum1,'voted':voted,'username':user,'cp1':cp1,'cp2':cp2}    
+        context={'question':question,'choices':choice_list,'voted':voted,'username':user,'countries':json.dumps(countries)}    
     else:
-        context={'question':question,'choices':choice_list,'choicepercent':choice_percent,'sum1':sum1,'username':user,'cp1':cp1,'cp2':cp2}
+        context={'question':question,'choices':choice_list,'username':user,'countries':json.dumps(countries)}
     return render(request,'polls/results.html',context)
 
 def vote(request,question_id):
@@ -197,7 +198,7 @@ def addComments(request):
 
 @csrf_exempt
 def search(request,query):
-    search_results = Question.objects.filter(question_text__contains=query)
+    search_results = Question.objects.filter(question_text__icontains=query)
     print(query)
     reqd_results = {}
     for res in search_results:

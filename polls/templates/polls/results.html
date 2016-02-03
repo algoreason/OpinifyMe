@@ -5,8 +5,8 @@
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% load staticfiles %}
-  <script src="{% static 'polls/libraries/RGraph.common.core.js' %}"></script>
-  <script src="{% static 'polls/libraries/RGraph.bar.js' %}"></script>
+<!--  <script src="{% static 'polls/libraries/RGraph.common.core.js' %}"></script> 
+  <script src="{% static 'polls/libraries/RGraph.bar.js' %}"></script> -->
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -65,7 +65,7 @@
 .material-icons.md-48 { font-size: 48px; }
 
             body{
-            	background-image: url("grey.png");
+            	/*background-image: url("grey.png");*/
 
         }
         .link-undecorated{
@@ -83,6 +83,68 @@
         overflow: auto;
     }
   </style>
+
+  <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <script type="text/javascript">
+google.charts.load('current', {'packages':['geochart']});
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        countries = {{countries | safe}}
+        var DataArray = [['Country', 'Opinions']];
+        for(var key in countries){
+            DataArray.push([key, countries[key]]);
+            console.log(DataArray);
+          }
+        var data = google.visualization.arrayToDataTable(DataArray);
+          
+        var options = {
+          //colorAxis: {colors: ['#00853f', 'black', '#e31b23']},
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+      </script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Choice');
+        data.addColumn('number', 'Votes');
+        data.addRows([
+          {% for choice in question.choice_set.all %}
+            ["{{choice.choice_text}}", {{choice.votes}}],
+          {% endfor %}
+        ]);
+
+        // Set chart options
+        var options = {'title':'Opinion Distribution',
+                       'width':800,
+                       'height':600};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+      
+      </script>
+      
   </head>
   <body>
   {% load poll_extras%}
@@ -141,8 +203,8 @@
 	<div class="row">
   <div class="col-sm-2"></div>
   <div class="col-sm-6">
-    <h1 style="color:#E8F5E9; margin-left:2%;">Opinions</h1>
-    <p style="color:#C8E6C9; margin-left:15%;">Q. {{question.question_text}}</p>      
+    <h1 style="color:#E8F5E9; margin-left:2%;">Q. {{question.question_text}}</h1>
+    <!-- <p style="color:#C8E6C9; margin-left:15%;"></p>       -->
     </div>
     
     <div class="col-sm-4"></div>
@@ -160,11 +222,12 @@
     </div>
   </div>
   <div class="col-sm-3"></div>
+  </div>
 {% endif %}
 
-    </div>
+    
 
-    <div class="container">
+    <!-- <div class="container">
     <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
@@ -177,17 +240,21 @@
       </div>
       <div class="col-sm-3"></div>
       </div>
-      </div>
+      </div> -->
 
-  <div class="row myrow1" style="margin-top:3%; margin-left:-4%;">
-    <div class="col-sm-4"></div>
-    <div class="col-sm-6">
-      <canvas id="cvs" !style="border: 1px solid #ccc">
-    [No canvas support]
-    </canvas>
+  <div class="row">
+    
+    <div class="col-md-3">
+    <div id="chart_div"></div>
     </div>
-    <div class="col-sm-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-3">
+    <div id="regions_div" style="width: 600px; height: 500px;"></div>
+    </div>
+    </div>
+    
   </div>
+  
   <div class="row" style="margin-top:3%; margin-left:-4%;">
     <div class="col-sm-3"></div>
     <div class="col-sm-7">
@@ -230,45 +297,9 @@
 </footer>
 </div>
 {%if choices %}
-Hello
 {%endif%}
 	</body>
-  <script>
-    $(document).ready(function ()
-    {
-        var data = [
-        {% for choice in question.choice_set.all %}
-        {{ choice.votes }}
-        {% if forloop.counter != 4%}
-        ,
-        {%endif %}
-        {%endfor%}
-        ];
-
-        var bar = new RGraph.Bar({
-            id: 'cvs',
-            data: data,
-            options: {
-                background: {
-                    grid: {
-                        autofit: {
-                            numvlines: 0
-                        }
-                    }
-                },
-                linewidth: 0,
-                shadow: false,
-                hmargin: 10,
-                colors: ['#4CAF50'],
-                labels: ['1','2','3','4'],
-                clearto: 'white',
-
-            }
-        })
-          
-        RGraph.ISOLD ? bar.draw() : bar.wave({frames: 60})
-    });
-</script>
+  
   <script type="text/javascript">
   $("#sample6").keyup(function(e){
   var suggestionbox = $("#well")
