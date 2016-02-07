@@ -154,6 +154,9 @@ def questionsByCat(request,category_id):
 def me(request):
     return render(request,'polls/sharad.html',{})
 
+def abhishek_profile(request):
+    return render(request, 'polls/abhishek-jindal.html',{})
+
 def profileView(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect("/login/")
