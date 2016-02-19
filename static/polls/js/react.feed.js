@@ -188,7 +188,7 @@ var ResultElement = React.createClass({
         {results}
         <div className="col-sm-4"></div>
         <div className="col-sm-6">
-          <a className="btn btn-primary" href={"http://localhost:8000/".concat(this.props.question_id).concat("/results/voted")}>View Details</a>
+          <a className="btn btn-primary" href={"/".concat(this.props.question_id).concat("/results/voted")}>View Details</a>
         </div>
       </div>
     )  
