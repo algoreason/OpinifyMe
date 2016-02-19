@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/home/sharad/dev/Test/react-0.11.2/build/react.js"></script>
+    <script src="/home/sharad/dev/Test/react-0.11.2/build/JSXTransformer.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
+  </head>
+  <body>
+  <style type="text/css">
+  button {
+    background: #f1c40f;
+    border: 0;
+    box-shadow: 0px 5px 0px darken(#f1c40f, 20%);
+    padding: 20px;
+    width: 100%;
+    outline: none;
+    border-radius: 3px;
+    color: darken(#8e44ad, 10%);
+    font-weight: bold;
+  }
+}
+  </style>
+    
+    <div id="button-mount-point"></div>
+    <div id="mount-point"></div>
+    <script type="text/jsx">
+      /** @jsx React.DOM */
+    
+    var data = [{"name":"sharad", "value":"100"}, {"name":"sharad1", "value":"101"}, {"name":"sharad2", "value":"102"}]
+
+    var MyComponent = React.createClass({
+    incrementCounter: function(){
+      this.setState({
+        count : this.state.count + 1
+      })
+    },
+    getInitialState: function(){
+      return {
+        count : 0
+      }
+    },
+    render: function(){
+        return (
+            <div id="my-component">
+              <h1> {this.props.name} - {this.state.count}!</h1>
+              <button id="my_button" type="button" onClick={this.incrementCounter}> Increment </button>
+            </div>
+        );
+        }
+    });
+
+    React.renderComponent(<MyComponent name="Test counter"/>,document.getElementById('button-mount-point'));
+
+    /**   **/
+
+
+    var FeedElement = React.createClass({
+      getInitialState: function(){
+        return({
+          "data":data,
+        })
+      },
+
+      render: function(){
+        return (
+        <div className="panel-group" id="accordion">
+          <div className="panel panel-default">
+            <a data-toggle="collapse" data-parent="#accordion" className="questions" href="#">
+              <div className="panel-heading">
+                <div className="question-description"></div>
+                <h4 className="panel-title">
+                  <FeedList data = {this.state.data}/>
+                </h4>
+              </div>
+            </a>
+          <div id="question" className="panel-collapse collapse">
+            <div className="panel-body">
+              <div className="row">
+                <div className="col-sm-6">
+                  <div className="radio">
+                    <label><input type="radio" name="optradio"/>Choice</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+        </div>
+          );
+      }
+    });
+
+    var FeedList = React.createClass({
+      render:function(){
+        var feedItems = this.props.data.map(function(item){
+          return(
+            <FeedItem data = {item}/>
+            )
+          }, this);
+        return(
+          <ul className="myList" id="feedList">
+            {feedItems}
+          </ul>
+          )
+      }
+    });
+
+    var FeedItem = React.createClass({
+      render:function(){
+        return(
+          <li className="myItem" id="MyItem">
+           {this.props.data.name}
+          </li>
+          )
+      }
+    });
+
+    React.renderComponent(<FeedElement/>,document.getElementById('mount-point'));  
+    $('#my_button').on("click", function(){
+      $.ajax({
+        url:"http://localhost:8000/api/feed/",
+        success: function(result){
+          console.log(result);
+          
+        }
+      });
+      
+    })
+    
+
+    </script>
+
+  </body>
+
+<!--
+<!-- {% for question in questions %}
+        
+      <div class="panel panel-default">
+        <a data-toggle="collapse" data-parent="#accordion" class="questions" style="text-decoration:none;" href="#question{{forloop.counter}}">
+        <div class="panel-heading">
+          <div class="question-description">{{question.category_id.category_name}} &bull; {{question.created|date:"d M" }}</div>
+          <h4 class="panel-title">
+            {{question.question_text}}
+          </h4>
+        </div>
+        </a>
+        <div id="question{{forloop.counter}}" class="panel-collapse collapse">
+          <div class="panel-body">
+            <div class="row">
+              {% for choice in question.choice_set.all %}
+              <div class="col-sm-6">
+              <div class="radio">
+                <label><input type="radio" name="optradio">{{choice.choice_text}}</label>
+              </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      
+      {% endfor %} -->
+    
+-->
+
+</html>

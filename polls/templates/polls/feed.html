@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Feed</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- The Ones from google (the real deal)-->  
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.1.1/material.blue-red.min.css" /> 
+  <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script> 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  {% load staticfiles %}
+  
+  <style type="text/css">
+@media screen and (min-width:768px){
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.mybrand{
+        	font-size:180%; padding-top:20%;
+        }
+}
+.row{
+			width: 100%;
+}
+@media screen and (max-width:768px){
+	.myrow1{
+		margin-left: 1%;
+
+	}
+	}
+.navbar{
+	margin-bottom: 0;
+}
+.material-icons.orange600 { color: #FB8C00; }
+    .material-icons.green500 { color: #4CAF50; }
+    .material-icons.blue500 { color: #03A9F4 }
+    .material-icons.red500 { color: #F44336 }
+.material-icons.md-48 { font-size: 48px; }
+		.mycard1{
+              background-color: #46B6AC;
+            }
+            .mycard2{
+              background-color: #FFD54F;
+            }
+            .mycard3{
+              background-color: #4CAF50;
+            }
+            .mycard4{
+              background-color: #F44336;
+            }
+            .mycard5{
+              background-color: #03A9F4;
+            }
+            .mycard6{
+              background-color: #673AB7;
+            }
+            .demo-card-image.mdl-card {
+          width: 239px;
+          height: 256px;
+          background: url('photo.jpg') center / cover;
+      }
+      .demo-card-image > .mdl-card__actions {
+      height: 52px;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.2);
+      }
+      .demo-card-image__filename {
+      color: #fff;
+      }
+      
+
+      .demo-card-square.mdl-card {
+              width: 100%;
+              height: 320px;
+            }
+            .demo-card-square > .mdl-card__title {
+              color: #fff;
+              
+            }
+            body{
+            	background-image: url("grey.png");
+
+        }
+        .link-undecorated{
+        	text-decoration: none;
+        }
+        #well {
+		    height: 700%;
+		    margin-bottom: 0;
+		    overflow: auto;
+		}
+    a.questions:hover{
+      color: #595959;
+    }
+    .question-description{
+      color: #595959; 
+    }
+    a.questions{
+      color:black;
+    }
+    .show{
+      visibility: true;
+    }
+    .hide{
+      visibility: false;
+    }
+  </style>
+  </head>
+  <body>
+  	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand mybrand" href="#"><div>Opinify Me!</div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/feed"><i class="material-icons orange600">dashboard</i> <div>Feed</div></a></li>
+        {%if user%}
+        <li>
+          <a href="{% url 'polls:newQuestion' %}"><i class="material-icons red500">add</i> <div>Add Question</div></a>
+        </li> 
+        {%endif%}
+        <li>
+          <a href="{% url 'polls:about' %}"><i class="material-icons green500">info_outline</i> <div> About</div></a>
+        </li> 
+        <li>
+          <a href="#"><i class="material-icons red500">help</i> <div>F.A.Q.</div></a>
+        </li> 
+        <li>
+        	<!-- Expandable Textfield -->
+			<form action="#">
+			  <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+			    <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+			      <i class="material-icons">search</i>
+			    </label>
+			    <div class="mdl-textfield__expandable-holder">
+			      <input class="mdl-textfield__input" type="text" id="sample6">
+			      <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+			      
+			    </div>
+			  </div>
+			</form>
+        <div class="list-group" style="position:absolute;z-index:999" id="suggestion-box"></div>
+        <div id="well" style="position:absolute;z-index:999">
+        	
+        </div>
+        </li>
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      
+		<li class="dropdown">
+		<a class="dropdown-toggle" id="demo-menu-lower-right" data-toggle="dropdown" href="#"><i class="material-icons blue500">face</i><div>Hi {{ user.first_name }}</div></a></li>
+		<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+		    for="demo-menu-lower-right">
+		  <li class="mdl-menu__item"><a href="{% url 'polls:profileView' %}" style="text-decoration:none; color:black;">My Profile</a></li>
+		  <li class="mdl-menu__item"><a href="{% url 'polls:logout' %}" style="text-decoration:none; color:black">Logout</a></li>
+		</ul>
+      </ul>
+    </div>
+  </div>
+  
+</nav>
+  
+
+<!-- <div class="jumbotron" style="background-color:#2196F3">
+	<div class="row">
+	<div class="col-sm-1"></div>
+	<div class="col-sm-6">
+    <h1 style="color:#E8F5E9; margin-left:2%;">Categories</h1>
+    <p style="color:#C8E6C9; margin-left:15%;">to filter and cover more!</p>      
+    </div>
+    
+    <div class="col-sm-5"></div>
+    </div>
+ </div>
+  -->
+  <div class="container">
+    <div class="row myrow1" style="margin-top:2%">
+  	  <div id="categories-point" style = "margin-left: -8%; margin-top: 1.40%; width: 30%;" class="col-sm-2">
+        
+      </div>
+      <div id="feed-point" class="col-sm-8">
+      </div>
+  	  <div class="col-sm-2"></div>
+  	</div>
+  </div>
+  	
+  	<footer class="mdl-mini-footer" style="margin-top:4%">
+  <div class="mdl-mini-footer--left-section">
+    <div class="mdl-logo">Designed and developed by <a href="{% url 'polls:me' %}" target="_blank">Sharad Dargan</a> &amp <a href="{% url 'polls:abhishek_profile' %}" target="_blank">Abhishek Jindal</a></div>
+    <ul class="mdl-mini-footer--link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy &amp; Terms</a></li>
+    </ul>
+  </div>
+</footer>
+
+	</body>
+  <script src="/static/polls/react-0.11.2/build/react.js"></script>
+  <script src="/static/polls/react-0.11.2/build/JSXTransformer.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+  <!--
+  <script type="text/javascript" src="{% static 'polls/js/feed.js' %}"></script>
+  -->
+  <script type="text/jsx" src="{% static 'polls/js/react.feed.js' %}"></script>
+  <script type="text/javascript">
+    // For search
+$("#sample6").keyup(function(e){
+var suggestionbox = $("#well")
+var url ="/search/"+$("#sample6").val()
+console.log(url)
+$.getJSON( url, function( data ) {
+  var items = [];
+  suggestionbox.empty();
+  $.each( data, function( key, val ) {
+    suggestionbox.append(
+    "<a href= \'' "+key + "/\' class=\"list-group-item\">" + val + "</a>");
+        });
+
+  }).error(function(){
+    suggestionbox.empty();
+  });
+
+  });
+  </script>
+	</html>

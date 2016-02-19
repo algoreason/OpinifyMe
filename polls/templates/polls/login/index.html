@@ -107,7 +107,7 @@ body{
   				<div class="row">
   					<div class="col-sm-3"></div>
   					<div class="col-sm-6">
-				  		<form  action="{%  url 'polls:loginAuth'%}" method="POST" role="form">
+            	<form  action="{%  url 'polls:loginAuth'%}?{{ request.GET.urlencode }}" method="POST" role="form">
               {%  csrf_token %}
 				 	 		
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">

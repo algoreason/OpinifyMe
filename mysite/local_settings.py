@@ -20,14 +20,13 @@ DATABASES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, "static"),
-#    '/home/ubuntu/OpinifyMe/static/',
-#)
+STATICFILES_DIRS = (
+   os.path.join(BASE_DIR, "static"),
+)
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
