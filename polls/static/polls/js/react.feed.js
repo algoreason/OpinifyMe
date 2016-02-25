@@ -137,7 +137,7 @@ var ChoiceElement = React.createClass({
   },
   handleClick: function (event) {
     // console.log(this.props.onVote(true));
-    $("#button".concat(this.props.question_id)).addClass('mdl-spinner mdl-js-spinner is-active');
+    $("#button".concat(this.props.question_id)).removeClass('active').addClass('disabled');
     var setAsVoted = this.props.onVote;
     $.post("/api/vote/",
     {
