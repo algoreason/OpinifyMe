@@ -30,11 +30,12 @@ def logout_view(request):
 
 
 def login_proc(request):
-    username=request.POST['username']
+    email=request.POST['email']
     password=request.POST['password']
     next = request.GET.get('next')
-    print "next = "+str(next)
-    user=authenticate(username=username,password=password)
+    email_user = User.objects.get(email=email)
+    user=authenticate(username=email_user.username,password=password)
+    print user
     if user is not None:
         if user.is_active:
             login(request,user)
@@ -67,17 +68,17 @@ def registerInit(request):
     return render(request, 'polls/register.html', {})    
 
 def register(request):
-    username=request.POST['username']
-    email=request.POST['email']
-    password=request.POST['password']
-    first_name=request.POST['firstname']
-    last_name=request.POST['lastname']
+    user_details = {
+            "email":request.POST['email'],
+            "first_name":request.POST['firstname'],
+            "last_name":request.POST['lastname']
+        }
     try:    
-        user = User.objects.create_user(username,email,password)
-        user.last_name = last_name
-        user.first_name = first_name
+        user = User.objects.create(**user_details)
+        password = request.POST['password']
+        user.set_password(password)
         user.save()
-        user=authenticate(username=username,password=password)
+        user=authenticate(username=user.username,password=password)
         login(request,user)
         return HttpResponseRedirect("/feed/")
     except Exception as e:
