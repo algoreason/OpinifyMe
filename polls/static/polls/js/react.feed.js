@@ -14,14 +14,14 @@ var FeedList = React.createClass({
       },
       loadFromServer: function (url) {
         $(".load-more-container").removeClass('show').addClass('hide');
-        $(".spinner-container").removeClass('hide').addClass('show');
+        $("#feed-loader").removeClass('hide').addClass('show');
         $.ajax({
           url: url,
           success: function(response){
             if(response.next != null){
               $(".load-more-container").removeClass('hide').addClass('show');
-              $(".spinner-container").removeClass('show').addClass('hide');
             }
+            $("#feed-loader").removeClass('show').addClass('hide');
             this.setState({
               feed: this.state.feed.concat(response.results),
               next: response.next,
@@ -137,6 +137,7 @@ var ChoiceElement = React.createClass({
   },
   handleClick: function (event) {
     // console.log(this.props.onVote(true));
+    $("#button".concat(this.props.question_id)).addClass('mdl-spinner mdl-js-spinner is-active');
     var setAsVoted = this.props.onVote;
     $.post("/api/vote/",
     {
@@ -188,7 +189,7 @@ var ResultElement = React.createClass({
         {results}
         <div className="col-sm-4"></div>
         <div className="col-sm-6">
-          <a className="btn btn-primary" href={"http://localhost:8000/".concat(this.props.question_id).concat("/results/voted")}>View Details</a>
+          <a className="btn btn-primary" href={"/".concat(this.props.question_id).concat("/results/voted")}>View Details</a>
         </div>
       </div>
     )  
