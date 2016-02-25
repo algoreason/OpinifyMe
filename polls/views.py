@@ -33,7 +33,10 @@ def login_proc(request):
     email=request.POST['email']
     password=request.POST['password']
     next = request.GET.get('next')
-    email_user = User.objects.get(email=email)
+    try:
+        email_user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        return HttpResponseRedirect("/login/?error=True")
     user=authenticate(username=email_user.username,password=password)
     print user
     if user is not None:
