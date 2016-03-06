@@ -22,6 +22,7 @@ class Question(models.Model):
 class Choice(models.Model):
     question = models.ForeignKey(Question)
     choice_text = models.CharField(max_length=200)
+    is_main = models.BooleanField(default = True)
     votes = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

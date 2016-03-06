@@ -81,9 +81,7 @@ def register(request):
         password = request.POST['password']
         user.set_password(password)
         user.save()
-        user=authenticate(username=user.username,password=password)
-        login(request,user)
-        return HttpResponseRedirect("/feed/")
+        return HttpResponseRedirect("/completeProfile?uid="+str(user.id))
     except Exception as e:
         print(e)
         return HttpResponseRedirect("/register/")
@@ -287,3 +285,47 @@ def search(request,query):
         reqd_results[res.id]=res.question_text
     print(reqd_results)
     return HttpResponse(json.dumps(reqd_results),content_type="application/json")
+
+def complete_profile_page(request):
+    uid = request.GET.get('uid')
+    user_profile = UserProfile.objects.get(user_id = uid)
+    if user_profile.is_complete is True:
+        return HttpResponseRedirect('/feed')
+    context = {}
+    context['countries'] = Country.objects.all()
+    uid = request.GET.get('uid')
+    if uid is None:
+        return HttpResponseRedirect('/login')
+    try:
+        user = User.objects.get(id = uid)
+    except Exception, e:
+        return HttpResponseRedirect('/login')
+    context['uid'] = user.id
+    error = request.GET.get('error')
+    if error:
+        context['error'] = 'Please enter the values for all the compulsary fields.'
+    return render(request, 'polls/completeProfile.html', context)
+
+def complete_profile_submit(request):
+    uid = request.POST.get('uid')
+    user_profile = UserProfile.objects.get(user_id = uid)
+    if user_profile.is_complete is True:
+        return HttpResponseRedirect('/feed')
+    profile_data = {}
+    profile_data['gender'] = request.POST.get('gender')
+    profile_data['religion'] = request.POST.get('religion')
+    profile_data['nationality'] = request.POST.get('country')
+    profile_data['about_self'] = request.POST.get('about-self')
+    profile_data['date_of_birth'] = request.POST.get('dob')
+    profile_data['is_complete'] = True
+    if profile_data['gender'] is None or\
+        profile_data['religion'] is None or\
+        profile_data['nationality'] is None or\
+        profile_data['about_self'] is None or\
+        profile_data['date_of_birth'] is None :
+        return HttpResponseRedirect('/completeProfile?uid='+uid+'&error=True')
+    UserProfile.objects.filter(user_id = uid).update(**profile_data)
+    user = User.objects.get(id = uid)
+    user.backend = 'django.contrib.auth.backends.ModelBackend'
+    login(request,user)
+    return HttpResponseRedirect('/feed')

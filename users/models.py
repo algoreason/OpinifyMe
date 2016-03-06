@@ -47,9 +47,12 @@ class UserProfile(models.Model):
 		(1, 'Female'),
 		)
 	user = models.ForeignKey(User)
+	is_complete = models.BooleanField(default = False)
 	email_verification = models.BooleanField(default = False)
 	location = models.ForeignKey(Country,default=119)
 	about_self = models.TextField(blank=True, null=True)
+	nationality = models.CharField(max_length = 255, blank = True, null = True)
+	religion = models.CharField(max_length = 255, blank =True, null = True)
 	date_of_birth = models.DateField(default=datetime.datetime.strptime("1980-01-01", "%Y-%m-%d"))
 	profile_update_date = models.DateTimeField(auto_now=True)
 	profile_img = models.CharField(max_length=255, blank=True, null=True)
