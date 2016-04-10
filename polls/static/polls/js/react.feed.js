@@ -82,6 +82,7 @@ var FeedItem = React.createClass({
       }
     },
     handleVoteButtonClick: function(voted,results){
+      
       this.setState({
         voted: voted,
         results: results
@@ -98,7 +99,7 @@ var FeedItem = React.createClass({
         choicePanel = <ResultElement results = {this.state.results} key={"result".concat(this.state.id)} question_id = {this.props.data.id}/>;
       }
       else{
-        choicePanel = <ChoiceElement onVote={this.handleVoteButtonClick} key={"choices".concat(this.state.id)} choices = {this.props.data.choices} question_id = {this.props.data.id}/>;
+        choicePanel = <ChoiceElement onVote={this.handleVoteButtonClick} key={"choices".concat(this.state.id)} choices = {this.props.data.choices} otherChoices={this.props.data.otherChoices} question_id = {this.props.data.id}/>;
       }
       return(
             <div style={style} className="panel panel-default">
@@ -115,7 +116,7 @@ var FeedItem = React.createClass({
               </a>
               <div id={"ques".concat(this.props.data.id)} className="panel-collapse collapse">
                 <div className="panel-body">
-                  <div className="row">
+                  <div style={{ "margin-right": 0, "margin-left": 0}} className="row">
                     {choicePanel}
                   </div>
                 </div>
@@ -128,41 +129,111 @@ var FeedItem = React.createClass({
 var ChoiceElement = React.createClass({
   getInitialState: function(){
     return({
-      "selected":null
+      "selected":null,
+      "choices":this.props.choices,
+      "addOther":false,
+      "newOption":null
     })
   },
   handleRadioClick: function (event) {
+    this.handleHideOtherText();
     this.setState({"selected":event.currentTarget.id});
     $("#button".concat(this.props.question_id)).removeClass('disabled').addClass('active');
   },
   handleClick: function (event) {
-    // console.log(this.props.onVote(true));
     $("#button".concat(this.props.question_id)).removeClass('active').addClass('disabled');
     var setAsVoted = this.props.onVote;
     $.post("/api/vote/",
-    {
+    { 
         "question_id": this.props.question_id,
-        "choice_id": this.state.selected
+        "choice_id": this.state.selected,
+        "new_option": this.state.newOption
     },
     function(data, status){
+        //console.log("data:"+data)
         //alert("Data: " + data.results + "\nStatus: " + status);
         setAsVoted(true,data.results);
 
     });
   },
+  handleOtherClick: function(event){
+    this.setState({"choices":this.state.choices.concat(this.props.otherChoices)});
+    $("#other".concat(this.props.question_id)).addClass('hide');  
+  },
+  handleShowOtherText: function(event){
+    this.setState({"addOther":true});
+    if(this.state.selected!=null){
+      //console.log("this is "+this.state.selected);
+      $("#"+this.state.selected).prop('checked', false);
+      this.setState({"selected":null});
+      $("#button".concat(this.props.question_id)).removeClass('active').addClass('disabled');
+    }
+    $("#add-other".concat(this.props.question_id)).removeClass('show').addClass('hide');
+    $("#remove-other".concat(this.props.question_id)).removeClass('hide').addClass('show')
+  },
+  handleHideOtherText: function(event){
+    this.setState({"addOther":false,"newOption":null});
+    $("#add-other".concat(this.props.question_id)).removeClass('hide').addClass('show');
+    $("#remove-other".concat(this.props.question_id)).removeClass('show').addClass('hide');  
+  },
+  handleTextChangeInput: function(text){
+    if(text != ""){
+      this.setState({"newOption":text});
+      $("#button".concat(this.props.question_id)).removeClass('disabled').addClass('active');
+    }
+    else{
+      this.setState({"newOption":null});
+      $("#button".concat(this.props.question_id)).removeClass('active').addClass('disabled');
+    }
+  },
   render: function () {
-    var choices = this.props.choices.map(function (item) {
+    var choices = this.state.choices.map(function (item) {
       return(
         <div className="col-sm-6" key = {item.id}>
           <label><input id={item.id} type="radio" name="optradio" onClick={this.handleRadioClick}/>{" ".concat(item.text)}</label>
         </div>
       )
     }, this);
+    var otherChoicesLink;
+    var hasOtherChoices = this.props.otherChoices.length > 0;
+    if(hasOtherChoices){
+      otherChoicesLink = <otherChoices onOtherClick={this.handleOtherClick} question_id = {this.props.question_id}/>
+    }
+    var otherChoicesText;
+    if(this.state.addOther){
+      otherChoicesText = <otherChoiceText onTextChange={this.handleTextChangeInput}/>;
+    }
     return(
       <div>
         <form>
-        {choices}
+          <div className = "row">
+            {choices}
+            <div className="col-sm-6 hide">
+              <label htmlFor={"text-choice".concat(this.props.question_id)}>Option:</label><br/>
+              <input style={{"margin-left":"10"}} type="text" className="form-control" id={"text-choice".concat(this.props.question_id)}/>
+            </div>
+          </div>
+          {otherChoicesLink}
+          <div id={"add-options".concat(this.props.question_id)} className = "row">
+            <div className = "col-sm-4"></div>
+            <div className = "col-sm-7">
+              <div id={"add-other".concat(this.props.question_id)}>
+                <a href="javascript://" onClick={this.handleShowOtherText}>Add an option. </a><br/><br/>
+              </div>
+            </div>
+          </div>
+          {otherChoicesText}
+          <div id={"remove-options".concat(this.props.question_id)} className = "row">
+            <div className = "col-sm-5"></div>
+            <div className = "col-sm-7">
+              <div id={"remove-other".concat(this.props.question_id)} className = "hide">
+                <a href="javascript://" onClick={this.handleHideOtherText}>Remove</a><br/><br/>
+              </div>
+            </div>
+          </div>
+          
         </form>
+
         <div className = "row">
           <div className = "col-sm-5"></div>
           <div className = "col-sm-7">
@@ -171,6 +242,53 @@ var ChoiceElement = React.createClass({
         </div>
       </div>
     )  
+  }
+});
+
+var otherChoices = React.createClass({
+  handleClick: function () {
+    var handleOtherClick = this.props.onOtherClick;
+    handleOtherClick();
+    $("#add-options".concat(this.props.question_id)).removeClass('hide').addClass('show');
+  },
+  componentDidMount: function () {
+    $("#add-options".concat(this.props.question_id)).removeClass('show').addClass('hide');
+  },
+  render: function(){
+    return(
+     <div className = "row">
+        <div className = "col-sm-4"></div>
+        <div className = "col-sm-7">
+          <div id={"other".concat(this.props.question_id)}>
+            <a href="javascript://" onClick={this.handleClick}>Other Options </a><br/><br/>
+          </div>
+        </div>
+      </div>
+    )
+  }
+});
+
+var otherChoiceText = React.createClass({
+  componentDidMount: function () {
+    $("#add-options".concat(this.props.question_id)).removeClass('show').addClass('hide');
+  },
+  handleOtherTextInput: function (event) {
+    
+    var textChangeTrigger = this.props.onTextChange;
+    textChangeTrigger(event.target.value);
+  },
+  render: function(){
+    return(
+     <div className = "row">
+        <div className = "col-sm-4"></div>
+        <div className = "col-sm-7">
+          <div id={"other-text".concat(this.props.question_id)}>
+            <input type="text" placeholder="Add New Option" onChange={this.handleOtherTextInput}/>
+          </div>
+          <br/>
+        </div>
+      </div>
+    )
   }
 });
 
@@ -203,7 +321,7 @@ var askedBy = React.createClass({
     if(this.props.is_voted){
       voted = <votedElement/>
     }
-    // console.log({voted});
+    
     return(
       <div>
         <div className= "row">

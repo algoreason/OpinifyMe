@@ -21,6 +21,7 @@ class Question(models.Model):
 
 class Choice(models.Model):
     question = models.ForeignKey(Question)
+    is_other = models.BooleanField(default = False)
     choice_text = models.CharField(max_length=200)
     is_main = models.BooleanField(default = True)
     votes = models.IntegerField(default=0)

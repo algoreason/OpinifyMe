@@ -206,19 +206,27 @@ def feed(request):
 def vote_api(request):
     if not request.user.is_authenticated():
         return HttpResponse(json.dumps({"message":"Please Sign in to continue voting."}),content_type="application/json")
-    question_id = int(request.POST.get('question_id'))
     try:
-        selected_choice = Choice.objects.get(pk=int(request.POST['choice_id']))
-    except (KeyError, Choice.DoesNotExist):
-        context ={'message':"Please select a Choice."}
-        return HttpResponse(json.dumps(context),content_type="application/json")
-    selected_choice.votes +=1;
-    selected_choice.save();
-    user = request.user
-    voted=Voted(username=user,question_id_id=question_id,choice=selected_choice,voted_date=timezone.now())
-    voted.save()
-    choices  =Choice.objects.filter(question_id = question_id)
-    results = [{"text":choice.choice_text,"votes":choice.votes} for choice in choices]
+        question_id = int(request.POST.get('question_id'))
+        choice_pk = request.POST.get('choice_id')
+        if choice_pk == '':
+            choice_text = request.POST.get('new_option')
+            choice_pk = Choice.objects.create(choice_text = choice_text, is_main = False, question_id = question_id).pk
+        try:
+            selected_choice = Choice.objects.get(pk=int(choice_pk))
+        except (KeyError, Choice.DoesNotExist):
+            context ={'message':"Please select a Choice."}
+            return HttpResponse(json.dumps(context),content_type="application/json")
+        selected_choice.votes +=1;
+        selected_choice.save();
+        user = request.user
+        voted=Voted(username=user,question_id_id=question_id,choice=selected_choice,voted_date=timezone.now())
+        voted.save()
+        choices  =Choice.objects.filter(question_id = question_id)
+        results = [{"text":choice.choice_text,"votes":choice.votes} for choice in choices]
+    except Exception, e:
+        print e
+        return HttpResponse(json.dumps({"results":""}),content_type="application/json")
     return HttpResponse(json.dumps({"results":results}),content_type="application/json")
 
 @csrf_exempt
@@ -245,7 +253,8 @@ def feed_api(request):
         is_voted = Voted.objects.filter(question_id = question, username = user).exists()
         serialized_data['is_voted'] = is_voted
         serialized_data['author']=question.author.first_name + " " + question.author.last_name
-        serialized_data['choices']=[{"id":choice.id,"text":choice.choice_text} for choice in question.choice_set.all()]
+        serialized_data['choices']=[{"id":choice.id,"text":choice.choice_text} for choice in question.choice_set.filter(is_main = True)]
+        serialized_data['otherChoices']=[{"id":choice.id,"text":choice.choice_text} for choice in question.choice_set.filter(is_main = False)]
         if is_voted:
             serialized_data['results'] = [{"text":choice.choice_text,"votes":choice.votes} for choice in question.choice_set.all()]
         results.append(serialized_data)
